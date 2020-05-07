@@ -116,9 +116,7 @@ abort_install:
 
 begin_install:
   SetOutPath "${TEMP_DIR}"
-
   File /oname=${FUSE_STUDIO_TGZ} ..\..\${FUSE_STUDIO_TGZ}
-  DetailPrint "Installing ${FUSE_STUDIO_NAME}"
 
   ExecDos::exec 'taskkill /f /t /im uno-host.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-tray.exe' ''
@@ -127,6 +125,8 @@ begin_install:
   ExecDos::exec 'taskkill /f /t /im fuse-preview.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse.exe' ''
   RMDir /r /REBOOTOK "${FUSE_STUDIO_DIR}"
+
+  DetailPrint "Installing ${FUSE_STUDIO_NAME}"
   ExecDos::exec /DETAILED 'cmd /c "${FUSE_STUDIO_INSTALL}"' ''
   Pop $0
 
@@ -158,12 +158,14 @@ SectionEnd
 
 Section "Android Build Tools"
 
+  DetailPrint "Installing android-build-tools"
   ExecDos::exec /DETAILED 'cmd /c "${ANDROID_INSTALL}"' ''
 
 SectionEnd
 
 Section "VC++ Redistributables"
 
+  DetailPrint "Installing vcredists"
   SetOutPath "${TEMP_DIR}"
 
   File vcredist_2010_x64.exe
