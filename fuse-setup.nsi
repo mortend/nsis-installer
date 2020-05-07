@@ -10,10 +10,10 @@
 !define NPM "${NPM_DIR}\npm.cmd"
 
 !define ANDROID_INSTALL '"${NPM}" install android-build-tools -g -f'
-!define FUSE_STUDIO_NAME "fuse-studio-win-@${VERSION}"
-!define FUSE_STUDIO_TGZ "fuse-studio-win-${VERSION}.tgz"
+!define FUSE_STUDIO_NAME "fuse-studio-win64-@${VERSION}"
+!define FUSE_STUDIO_TGZ "fuse-studio-win64-${VERSION}.tgz"
 !define FUSE_STUDIO_INSTALL '"${NPM}" install "${TEMP_DIR}\${FUSE_STUDIO_TGZ}" -g -f'
-!define FUSE_STUDIO_DIR "${NPM_DIR}\node_modules\fuse-studio-win"
+!define FUSE_STUDIO_DIR "${NPM_DIR}\node_modules\fuse-studio-win64"
 !define FUSE_STUDIO "${FUSE_STUDIO_DIR}\bin\Release\Fuse Studio.exe"
 !define UNO "${FUSE_STUDIO_DIR}\node_modules\.bin\uno"
 !define APP "${FUSE_STUDIO_DIR}\app"
@@ -22,7 +22,7 @@
 
 Unicode True
 Name "${NAME}"
-OutFile "..\..\fuse-x-${VERSION}-win.exe"
+OutFile "..\..\fuse-x-${VERSION}-win64.exe"
 InstallDir "$PROGRAMFILES\${NAME}"
 InstallDirRegKey HKCU "${REG_KEY}" ""
 RequestExecutionLevel admin
@@ -126,7 +126,7 @@ begin_install:
   ExecDos::exec 'taskkill /f /t /im "Fuse Studio.exe"' ''
   ExecDos::exec 'taskkill /f /t /im fuse-preview.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse.exe' ''
-  RMDir /r /REBOOTOK "${FUSE_STUDIO_DIR}"
+  ;RMDir /r /REBOOTOK "${FUSE_STUDIO_DIR}"
 
   DetailPrint "Installing ${FUSE_STUDIO_NAME}"
   ExecDos::exec /DETAILED 'cmd /c "${FUSE_STUDIO_INSTALL}"' ''
@@ -182,11 +182,11 @@ Section "VC++ Redistributables"
   ExecWait "${TEMP_DIR}\vcredist_2013_x64.exe /install /quiet /norestart"
   Delete "${TEMP_DIR}\vcredist_2013_x64.exe"
 
-; SectionEnd
+SectionEnd
 
 Section "Precalc"
 
-  DetailPrint "Building cache"
+  DetailPrint "Precalculating"
   ExecDos::exec /DETAILED 'cmd /c ""${UNO}" build dotnet "${APP}""' ''
   Pop $0
 
