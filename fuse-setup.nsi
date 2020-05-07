@@ -1,7 +1,7 @@
 ; This installer uses UltraModernUI and ExecDos plugins.
 
 !define NAME "fuse X"
-;!define VERSION "1.12.0"
+;!define VERSION "1.14.0-canary.0"
 
 !define NODE_VERSION "v10.16.1"
 !define NODE_MSI "node-${NODE_VERSION}-x64.msi"
@@ -9,6 +9,7 @@
 !define NPM_DIR "$APPDATA\npm"
 !define NPM "${NPM_DIR}\npm.cmd"
 
+!define ANDROID_INSTALL '"${NPM}" install android-build-tools -g -f'
 !define FUSE_STUDIO_NAME "fuse-studio-win-@${VERSION}"
 !define FUSE_STUDIO_TGZ "fuse-studio-win-${VERSION}.tgz"
 !define FUSE_STUDIO_INSTALL '"${NPM}" install "${TEMP_DIR}\${FUSE_STUDIO_TGZ}" -g -f'
@@ -68,7 +69,7 @@ SetCompressor lzma
   !insertmacro UMUI_PAGE_MULTILANGUAGE
   ;!insertmacro MUI_PAGE_WELCOME
   !insertmacro MUI_PAGE_LICENSE "license.txt"
-  ;!insertmacro MUI_PAGE_COMPONENTS
+  !insertmacro MUI_PAGE_COMPONENTS
   ;!insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
 
@@ -164,6 +165,12 @@ begin_install:
   CreateDirectory "$SMPROGRAMS\${NAME}"
   CreateShortCut "$SMPROGRAMS\${NAME}\${NAME}.lnk" "${FUSE_STUDIO}" "" "${FUSE_STUDIO}"
   CreateShortCut "$SMPROGRAMS\${NAME}\Uninstall ${NAME}.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe"
+
+SectionEnd
+
+Section "Android Build Tools"
+
+  ExecDos::exec /DETAILED 'cmd /c "${ANDROID_INSTALL}"' ''
 
 SectionEnd
 
