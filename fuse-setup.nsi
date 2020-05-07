@@ -15,6 +15,8 @@
 !define FUSE_STUDIO_INSTALL '"${NPM}" install "${TEMP_DIR}\${FUSE_STUDIO_TGZ}" -g -f'
 !define FUSE_STUDIO_DIR "${NPM_DIR}\node_modules\fuse-studio-win"
 !define FUSE_STUDIO "${FUSE_STUDIO_DIR}\bin\Release\Fuse Studio.exe"
+!define UNO "${FUSE_STUDIO_DIR}\node_modules\.bin\uno"
+!define APP "${FUSE_STUDIO_DIR}\app"
 !define TEMP_DIR "$TEMP\fuse-setup"
 !define REG_KEY "Software\Fuseapps\${NAME}\setup"
 
@@ -179,6 +181,18 @@ Section "VC++ Redistributables"
   File vcredist_2013_x64.exe
   ExecWait "${TEMP_DIR}\vcredist_2013_x64.exe /install /quiet /norestart"
   Delete "${TEMP_DIR}\vcredist_2013_x64.exe"
+
+; SectionEnd
+
+Section "Precalc"
+
+  DetailPrint "Building cache"
+  ExecDos::exec /DETAILED 'cmd /c ""${UNO}" build dotnet "${APP}""' ''
+  Pop $0
+
+  ${If} $0 != 0
+    SetDetailsView show
+  ${EndIf}
 
 SectionEnd
 
