@@ -94,11 +94,17 @@ SpaceTexts none
   !insertmacro MUI_LANGUAGE "Korean"
 
 ;--------------------------------
+;Install types
+
+  InstType "Typical"
+
+;--------------------------------
 ;Installer Sections
 
   !include "LogicLib.nsh"
 
 Section "Fuse Studio" SEC0000
+SectionIn 1 RO
 
 retry:
   IfFileExists "${NPM}" begin_install 0
@@ -161,6 +167,7 @@ begin_install:
 SectionEnd
 
 Section "Android Build Tools"
+SectionIn 1
 
   DetailPrint "Installing android-build-tools"
   ExecDos::exec /DETAILED 'cmd /c "${ANDROID_INSTALL}"' ''
@@ -168,6 +175,7 @@ Section "Android Build Tools"
 SectionEnd
 
 Section "VC++ Redistributables"
+SectionIn 1
 
   DetailPrint "Installing vcredists"
   SetOutPath "${TEMP_DIR}"
@@ -187,6 +195,7 @@ Section "VC++ Redistributables"
 SectionEnd
 
 Section "Precalc"
+SectionIn 1
 
   DetailPrint "Precalculating"
   ExecDos::exec /DETAILED 'cmd /c ""${UNO}" build dotnet "${APP}""' ''
