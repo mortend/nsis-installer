@@ -10,7 +10,7 @@
 !define NPM "${NPM_DIR}\npm.cmd"
 
 !define ANDROID_INSTALL '"${NPM}" install android-build-tools -g -f'
-!define FUSE_STUDIO_NAME "fuse-studio-win64-@${VERSION}"
+!define FUSE_STUDIO_NAME "fuse-studio-win64@${VERSION}"
 !define FUSE_STUDIO_TGZ "fuse-studio-win64-${VERSION}.tgz"
 !define FUSE_STUDIO_INSTALL '"${NPM}" install "${TEMP_DIR}\${FUSE_STUDIO_TGZ}" -g -f'
 !define FUSE_STUDIO_DIR "${NPM_DIR}\node_modules\fuse-studio-win64"
@@ -27,6 +27,7 @@ InstallDir "$PROGRAMFILES\${NAME}"
 InstallDirRegKey HKCU "${REG_KEY}" ""
 RequestExecutionLevel admin
 SetCompressor lzma
+SpaceTexts none
 
 ;--------------------------------
 ;Interface Settings
@@ -54,6 +55,7 @@ SetCompressor lzma
   !define MUI_UNICON "icon.ico"
   !define MUI_INSTFILESPAGE_COLORS "50e645 31343a"
   !define MUI_INSTFILESPAGE_PROGRESSBAR "smooth colored"
+  !define MUI_COMPONENTSPAGE_NODESC
 
   !define UMUI_USE_INSTALLOPTIONSEX
   !define UMUI_WELCOMEFINISHABORTPAGE_USE_IMAGE
