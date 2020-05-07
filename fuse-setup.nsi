@@ -117,18 +117,6 @@ abort_install:
 begin_install:
   SetOutPath "${TEMP_DIR}"
 
-  File vcredist_2010_x64.exe
-  ExecWait "${TEMP_DIR}\vcredist_2010_x64.exe /q /norestart"
-  Delete "${TEMP_DIR}\vcredist_2010_x64.exe"
-
-  File vcredist_2012_x64.exe
-  ExecWait "${TEMP_DIR}\vcredist_2012_x64.exe /q /norestart"
-  Delete "${TEMP_DIR}\vcredist_2012_x64.exe"
-
-  File vcredist_2013_x64.exe
-  ExecWait "${TEMP_DIR}\vcredist_2013_x64.exe /install /quiet /norestart"
-  Delete "${TEMP_DIR}\vcredist_2013_x64.exe"
-
   File /oname=${FUSE_STUDIO_TGZ} ..\..\${FUSE_STUDIO_TGZ}
   DetailPrint "Installing ${FUSE_STUDIO_NAME}"
 
@@ -171,6 +159,24 @@ SectionEnd
 Section "Android Build Tools"
 
   ExecDos::exec /DETAILED 'cmd /c "${ANDROID_INSTALL}"' ''
+
+SectionEnd
+
+Section "VC++ Redistributables"
+
+  SetOutPath "${TEMP_DIR}"
+
+  File vcredist_2010_x64.exe
+  ExecWait "${TEMP_DIR}\vcredist_2010_x64.exe /q /norestart"
+  Delete "${TEMP_DIR}\vcredist_2010_x64.exe"
+
+  File vcredist_2012_x64.exe
+  ExecWait "${TEMP_DIR}\vcredist_2012_x64.exe /q /norestart"
+  Delete "${TEMP_DIR}\vcredist_2012_x64.exe"
+
+  File vcredist_2013_x64.exe
+  ExecWait "${TEMP_DIR}\vcredist_2013_x64.exe /install /quiet /norestart"
+  Delete "${TEMP_DIR}\vcredist_2013_x64.exe"
 
 SectionEnd
 
