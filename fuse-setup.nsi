@@ -180,15 +180,17 @@ SectionIn 1
   DetailPrint "Installing vcredists"
   SetOutPath "${TEMP_DIR}"
 
-  File vcredist_2010_x64.exe
+  ; https://stackoverflow.com/questions/12206314/detect-if-visual-c-redistributable-for-visual-studio-2012-is-installed
+
+  NSISdl::download https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x64.exe vcredist_2010_x64.exe
   ExecWait "${TEMP_DIR}\vcredist_2010_x64.exe /q /norestart"
   Delete "${TEMP_DIR}\vcredist_2010_x64.exe"
 
-  File vcredist_2012_x64.exe
+  NSISdl::download https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe vcredist_2012_x64.exe
   ExecWait "${TEMP_DIR}\vcredist_2012_x64.exe /q /norestart"
   Delete "${TEMP_DIR}\vcredist_2012_x64.exe"
 
-  File vcredist_2013_x64.exe
+  NSISdl::download https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe vcredist_2013_x64.exe
   ExecWait "${TEMP_DIR}\vcredist_2013_x64.exe /install /quiet /norestart"
   Delete "${TEMP_DIR}\vcredist_2013_x64.exe"
 
