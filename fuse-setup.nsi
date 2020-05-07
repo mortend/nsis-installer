@@ -137,6 +137,7 @@ begin_install:
   ExecDos::exec 'taskkill /f /t /im "Fuse Studio.exe"' ''
   ExecDos::exec 'taskkill /f /t /im fuse-preview.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse.exe' ''
+  RMDir /r /REBOOTOK "${FUSE_STUDIO_DIR}"
   ExecDos::exec /DETAILED 'cmd /c "${FUSE_STUDIO_INSTALL}"' ''
   Pop $0
 
