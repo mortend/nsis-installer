@@ -9,6 +9,12 @@
 !define NPM_DIR "$APPDATA\npm"
 !define NPM "${NPM_DIR}\npm.cmd"
 
+!define GIT_VERSION "2.26.2"
+!define GIT_MSI "Git-${GIT_VERSION}-bit.msi"
+!define GIT_URL "https://github.com/git-for-windows/git/releases/download/v${GIT_VERSION}.windows.1/${GIT_MSI}"
+!define GIT_DIR "$PROGRAMFILES64\Git"
+!define GIT "${GIT_DIR}\bin\git.exe"
+
 !define ANDROID_INSTALL '"${NPM}" install android-build-tools -g -f'
 !define FUSE_STUDIO_NAME "fuse-studio-win64@${VERSION}"
 !define FUSE_STUDIO_TGZ "fuse-studio-win64-${VERSION}.tgz"
@@ -23,7 +29,7 @@
 Unicode True
 Name "${NAME}"
 OutFile "..\..\fuse-x-${VERSION}-win64.exe"
-InstallDir "$PROGRAMFILES\${NAME}"
+InstallDir "$PROGRAMFILES64\${NAME}"
 InstallDirRegKey HKCU "${REG_KEY}" ""
 RequestExecutionLevel admin
 SetCompressor lzma
@@ -179,6 +185,19 @@ install_fuse:
   CreateShortCut "$SMPROGRAMS\${NAME}\${NAME}.lnk" "${FUSE_STUDIO}" "" "${FUSE_STUDIO}"
   CreateShortCut "$SMPROGRAMS\${NAME}\Uninstall ${NAME}.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe"
 
+SectionEnd
+
+Section "Git for Windows"
+SectionIn 1
+
+  IfFileExists "${GIT}" installed_git 0
+
+  DetailPrint "Installing git"
+  NSISdl::download "${GIT_URL}" "${TEMP_DIR}\${GIT_MSI}"
+  ExecWait 'msiexec.exe /i "${TEMP_DIR}\${GIT_MSI}" /qn'
+  Delete "${TEMP_DIR}\${GIT_MSI}"
+
+installed_git:
 SectionEnd
 
 Section "Android Build Tools"
