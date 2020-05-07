@@ -115,6 +115,8 @@ SpaceTexts none
 
   !include "LogicLib.nsh"
 
+SectionGroup "Fuse Studio"
+
 Section "Node.js"
 SectionIn 1
 
@@ -192,41 +194,6 @@ install_fuse:
 
 SectionEnd
 
-Section "Git for Windows"
-SectionIn 1
-
-  IfFileExists "${GIT}" installed_git 0
-
-  DetailPrint "Installing git"
-  NSISdl::download "${GIT_URL}" "${TEMP_DIR}\${GIT_MSI}"
-  ExecWait 'msiexec.exe /i "${TEMP_DIR}\${GIT_MSI}" /qn'
-  Delete "${TEMP_DIR}\${GIT_MSI}"
-
-installed_git:
-SectionEnd
-
-Section "Java Development Kit"
-SectionIn 1
-
-  IfFileExists "${JAVA1}" installed_java 0
-  IfFileExists "${JAVA2}" installed_java 0
-
-  DetailPrint "Installing java"
-  NSISdl::download "${JDK_URL}" "${TEMP_DIR}\${JDK_MSI}"
-  ExecWait 'msiexec.exe /i "${TEMP_DIR}\${JDK_MSI}" /qn'
-  Delete "${TEMP_DIR}\${JDK_MSI}"
-
-installed_java:
-SectionEnd
-
-Section "Android Build Tools"
-SectionIn 1
-
-  DetailPrint "Installing android-build-tools"
-  ExecDos::exec /DETAILED 'cmd /c "${ANDROID_INSTALL}"' ''
-
-SectionEnd
-
 Section "VC++ Redistributables"
 SectionIn 1
 
@@ -282,6 +249,51 @@ SectionIn 1
   ${EndIf}
 
 SectionEnd
+
+SectionGroupEnd
+SectionGroup "Android Support"
+
+Section "Git for Windows"
+SectionIn 1
+
+  IfFileExists "${GIT}" installed_git 0
+
+  DetailPrint "Installing git"
+  NSISdl::download "${GIT_URL}" "${TEMP_DIR}\${GIT_MSI}"
+  ExecWait 'msiexec.exe /i "${TEMP_DIR}\${GIT_MSI}" /qn'
+  Delete "${TEMP_DIR}\${GIT_MSI}"
+
+installed_git:
+SectionEnd
+
+Section "Java Development Kit"
+SectionIn 1
+
+  IfFileExists "${JAVA1}" installed_java 0
+  IfFileExists "${JAVA2}" installed_java 0
+
+  DetailPrint "Installing java"
+  NSISdl::download "${JDK_URL}" "${TEMP_DIR}\${JDK_MSI}"
+  ExecWait 'msiexec.exe /i "${TEMP_DIR}\${JDK_MSI}" /qn'
+  Delete "${TEMP_DIR}\${JDK_MSI}"
+
+installed_java:
+SectionEnd
+
+Section "Android Build Tools"
+SectionIn 1
+
+  DetailPrint "Installing android-build-tools"
+  ExecDos::exec /DETAILED 'cmd /c "${ANDROID_INSTALL}"' ''
+  Pop $0
+
+  ${If} $0 != 0
+    SetDetailsView show
+  ${EndIf}
+
+SectionEnd
+
+SectionGroupEnd
 
 ;--------------------------------
 ;Uninstaller Section
