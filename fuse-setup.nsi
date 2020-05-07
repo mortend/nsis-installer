@@ -15,6 +15,11 @@
 !define GIT_DIR "$PROGRAMFILES64\Git"
 !define GIT "${GIT_DIR}\bin\git.exe"
 
+!define JDK_MSI "OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.msi"
+!define JDK_URL "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u252-b09.1/OpenJDK8U-${JDK_MSI}"
+!define JAVA1 "$PROGRAMFILES64\AdoptOpenJDK\jdk-8.0.252.09-hotspot\bin\java.exe"
+!define JAVA2 "$PROGRAMFILES64\\Android\Android Studio\jre\bin\java.exe"
+
 !define ANDROID_INSTALL '"${NPM}" install android-build-tools -g -f'
 !define FUSE_STUDIO_NAME "fuse-studio-win64@${VERSION}"
 !define FUSE_STUDIO_TGZ "fuse-studio-win64-${VERSION}.tgz"
@@ -198,6 +203,20 @@ SectionIn 1
   Delete "${TEMP_DIR}\${GIT_MSI}"
 
 installed_git:
+SectionEnd
+
+Section "Java Development Kit"
+SectionIn 1
+
+  IfFileExists "${JAVA1}" installed_java 0
+  IfFileExists "${JAVA2}" installed_java 0
+
+  DetailPrint "Installing java"
+  NSISdl::download "${JDK_URL}" "${TEMP_DIR}\${JDK_MSI}"
+  ExecWait 'msiexec.exe /i "${TEMP_DIR}\${JDK_MSI}" /qn'
+  Delete "${TEMP_DIR}\${JDK_MSI}"
+
+installed_java:
 SectionEnd
 
 Section "Android Build Tools"
