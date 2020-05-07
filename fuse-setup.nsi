@@ -109,6 +109,7 @@ SpaceTexts none
 ;Install types
 
   InstType "Typical"
+  InstType "Complete"
   InstType "Minimal"
 
 ;--------------------------------
@@ -119,7 +120,7 @@ SpaceTexts none
 SectionGroup "Fuse Studio"
 
 Section "Node.js"
-SectionIn 1
+SectionIn 1 2
 
   IfFileExists "${NPM}" installed_node 0
 
@@ -132,7 +133,7 @@ installed_node:
 SectionEnd
 
 Section "Fuse Studio" SEC0000
-SectionIn 1 2 RO
+SectionIn 1 2 3 RO
 
 retry:
   IfFileExists "${NPM}" install_fuse 0
@@ -196,7 +197,7 @@ install_fuse:
 SectionEnd
 
 Section "VC++ Redistributables"
-SectionIn 1
+SectionIn 1 2
 
   ; https://stackoverflow.com/questions/12206314/detect-if-visual-c-redistributable-for-visual-studio-2012-is-installed
 
@@ -239,7 +240,7 @@ installed_2013:
 SectionEnd
 
 Section "Warm-up"
-SectionIn 1
+SectionIn 1 2
 
   DetailPrint "Warming up"
   ExecDos::exec /DETAILED 'cmd /c ""${UNO}" build dotnet "${APP}""' ''
@@ -255,7 +256,7 @@ SectionGroupEnd
 SectionGroup "Android Support"
 
 Section "Git for Windows"
-SectionIn 1
+SectionIn 2
 
   IfFileExists "${GIT}" installed_git 0
 
@@ -268,7 +269,7 @@ installed_git:
 SectionEnd
 
 Section "Java Development Kit"
-SectionIn 1
+SectionIn 2
 
   IfFileExists "${JAVA1}" installed_java 0
   IfFileExists "${JAVA2}" installed_java 0
@@ -284,7 +285,7 @@ installed_java:
 SectionEnd
 
 Section "Android Build Tools"
-SectionIn 1
+SectionIn 1 2
 
   DetailPrint "Installing android-build-tools"
   ExecDos::exec /DETAILED 'cmd /c "${ANDROID_INSTALL}"' ''
