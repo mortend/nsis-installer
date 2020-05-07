@@ -103,6 +103,19 @@ SpaceTexts none
 
   !include "LogicLib.nsh"
 
+Section "Node.js"
+SectionIn 1
+
+  IfFileExists "${NPM}" installed_node 0
+
+  DetailPrint "Installing node"
+  NSISdl::download "${NODE_URL}" "${TEMP_DIR}\${NODE_MSI}"
+  ExecWait 'msiexec.exe /i "${TEMP_DIR}\${NODE_MSI}" /qn'
+  Delete "${TEMP_DIR}\${NODE_MSI}"
+
+installed_node:
+SectionEnd
+
 Section "Fuse Studio" SEC0000
 SectionIn 1 RO
 
