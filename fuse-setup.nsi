@@ -182,18 +182,36 @@ SectionIn 1
 
   ; https://stackoverflow.com/questions/12206314/detect-if-visual-c-redistributable-for-visual-studio-2012-is-installed
 
+  ReadRegStr $1 HKLM "SOFTWARE\Classes\Installer\Products\1926E8D15D0BCE53481466615F760A7F" "NUL:"
+  ${If} $0 != "NUL:"
+    Goto installed_2010
+  ${EndIf}
+
   NSISdl::download https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x64.exe vcredist_2010_x64.exe
   ExecWait "${TEMP_DIR}\vcredist_2010_x64.exe /q /norestart"
   Delete "${TEMP_DIR}\vcredist_2010_x64.exe"
+
+installed_2010:
+  ReadRegStr $1 HKLM "SOFTWARE\Classes\Installer\Dependencies\{ca67548a-5ebe-413a-b50c-4b9ceb6d66c6}" "NUL:"
+  ${If} $0 != "NUL:"
+    Goto installed_2012
+  ${EndIf}
 
   NSISdl::download https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe vcredist_2012_x64.exe
   ExecWait "${TEMP_DIR}\vcredist_2012_x64.exe /q /norestart"
   Delete "${TEMP_DIR}\vcredist_2012_x64.exe"
 
+installed_2012:
+  ReadRegStr $1 HKLM "SOFTWARE\Classes\Installer\Dependencies\{050d4fc8-5d48-4b8f-8972-47c82c46020f}" "NUL:"
+  ${If} $0 != "NUL:"
+    Goto installed_2013
+  ${EndIf}
+
   NSISdl::download https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe vcredist_2013_x64.exe
   ExecWait "${TEMP_DIR}\vcredist_2013_x64.exe /install /quiet /norestart"
   Delete "${TEMP_DIR}\vcredist_2013_x64.exe"
 
+installed_2013:
 SectionEnd
 
 Section "Precalc"
