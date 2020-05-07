@@ -17,7 +17,8 @@
 
 !define JDK_MSI "OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.msi"
 !define JDK_URL "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u252-b09.1/OpenJDK8U-${JDK_MSI}"
-!define JAVA1 "$PROGRAMFILES64\AdoptOpenJDK\jdk-8.0.252.09-hotspot\bin\java.exe"
+!define JAVA_DIR "$PROGRAMFILES64\AdoptOpenJDK\jdk-8.0.252.09-hotspot"
+!define JAVA1 "${JAVA_DIR}\bin\java.exe"
 !define JAVA2 "$PROGRAMFILES64\\Android\Android Studio\jre\bin\java.exe"
 
 !define ANDROID_INSTALL '"${NPM}" install android-build-tools -g -f'
@@ -276,6 +277,8 @@ SectionIn 1
   NSISdl::download "${JDK_URL}" "${TEMP_DIR}\${JDK_MSI}"
   ExecWait 'msiexec.exe /i "${TEMP_DIR}\${JDK_MSI}" /qn'
   Delete "${TEMP_DIR}\${JDK_MSI}"
+
+  System::Call 'Kernel32::SetEnvironmentVariable(t, t)i ("JAVA_HOME", "${JAVA_DIR}").r0'
 
 installed_java:
 SectionEnd
