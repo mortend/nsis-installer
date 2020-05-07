@@ -97,6 +97,7 @@ SpaceTexts none
 ;Install types
 
   InstType "Typical"
+  InstType "Minimal"
 
 ;--------------------------------
 ;Installer Sections
@@ -117,7 +118,7 @@ installed_node:
 SectionEnd
 
 Section "Fuse Studio" SEC0000
-SectionIn 1 RO
+SectionIn 1 2 RO
 
 retry:
   IfFileExists "${NPM}" install_fuse 0
