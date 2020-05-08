@@ -294,6 +294,7 @@ SectionIn 1 2
 
   ${If} $0 != 0
     SetDetailsView show
+    Abort
   ${EndIf}
 
 SectionEnd
