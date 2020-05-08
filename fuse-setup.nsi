@@ -12,14 +12,14 @@
 !define GIT_VERSION "2.26.2"
 !define GIT_MSI "Git-${GIT_VERSION}-bit.msi"
 !define GIT_URL "https://github.com/git-for-windows/git/releases/download/v${GIT_VERSION}.windows.1/${GIT_MSI}"
-!define GIT_DIR "$PROGRAMFILES64\Git"
-!define GIT "${GIT_DIR}\bin\git.exe"
+!define GIT1 "$PROGRAMFILES64\Git\bin\git.exe"
+!define GIT2 "$PROGRAMFILES\Git\bin\git.exe"
 
 !define JDK_MSI "OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.msi"
 !define JDK_URL "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u252-b09.1/OpenJDK8U-${JDK_MSI}"
 !define JAVA_DIR "$PROGRAMFILES64\AdoptOpenJDK\jdk-8.0.252.09-hotspot"
-!define JAVA1 "${JAVA_DIR}\bin\java.exe"
-!define JAVA2 "$PROGRAMFILES64\\Android\Android Studio\jre\bin\java.exe"
+!define JAVA1 "$PROGRAMFILES64\\Android\Android Studio\jre\bin\java.exe"
+!define JAVA2 "${JAVA_DIR}\bin\java.exe"
 
 !define ANDROID_INSTALL '"${NPM}" install android-build-tools -g -f'
 !define FUSE_STUDIO_NAME "fuse-studio-win64@${VERSION}"
@@ -258,7 +258,8 @@ SectionGroup "Android Support"
 Section "Git for Windows"
 SectionIn 2
 
-  IfFileExists "${GIT}" installed_git 0
+  IfFileExists "${GIT1}" installed_git 0
+  IfFileExists "${GIT2}" installed_git 0
 
   DetailPrint "Installing git"
   NSISdl::download "${GIT_URL}" "${TEMP_DIR}\${GIT_MSI}"
