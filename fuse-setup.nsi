@@ -27,8 +27,7 @@
 !define FUSE_STUDIO_INSTALL '"${NPM}" install "${TEMP_DIR}\${FUSE_STUDIO_TGZ}" -g -f'
 !define FUSE_STUDIO_DIR "${NPM_DIR}\node_modules\fuse-studio-win64"
 !define FUSE_STUDIO "${FUSE_STUDIO_DIR}\bin\Release\Fuse Studio.exe"
-!define UNO "${FUSE_STUDIO_DIR}\node_modules\.bin\uno"
-!define APP "${FUSE_STUDIO_DIR}\app"
+!define UNO "${FUSE_STUDIO_DIR}\node_modules\@fuse-open\uno\bin\uno.exe"
 !define TEMP_DIR "$TEMP\fuse-setup"
 !define REG_KEY "Software\Fuseapps\${NAME}\setup"
 
@@ -132,6 +131,49 @@ SectionIn 1 2
 installed_node:
 SectionEnd
 
+Section "VC++ Redistributables"
+SectionIn 1 2
+
+  ; https://stackoverflow.com/questions/12206314/detect-if-visual-c-redistributable-for-visual-studio-2012-is-installed
+
+  ReadRegStr $1 HKLM "SOFTWARE\Classes\Installer\Products\1926E8D15D0BCE53481466615F760A7F" "NUL:"
+  ${If} $0 != "NUL:"
+    DetailPrint "vcredist 2010 (x64) is installed already."
+    Goto installed_2010
+  ${EndIf}
+
+  DetailPrint "Installing vcredist 2010 (x64)"
+  NSISdl::download https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x64.exe vcredist_2010_x64.exe
+  ExecWait "${TEMP_DIR}\vcredist_2010_x64.exe /q /norestart"
+  Delete "${TEMP_DIR}\vcredist_2010_x64.exe"
+
+installed_2010:
+  ReadRegStr $1 HKLM "SOFTWARE\Classes\Installer\Dependencies\{ca67548a-5ebe-413a-b50c-4b9ceb6d66c6}" "NUL:"
+  ${If} $0 != "NUL:"
+  DetailPrint "vcredist 2012 (x64) is installed already."
+    Goto installed_2012
+  ${EndIf}
+
+  DetailPrint "Installing vcredist 2012 (x64)"
+  NSISdl::download https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe vcredist_2012_x64.exe
+  ExecWait "${TEMP_DIR}\vcredist_2012_x64.exe /q /norestart"
+  Delete "${TEMP_DIR}\vcredist_2012_x64.exe"
+
+installed_2012:
+  ReadRegStr $1 HKLM "SOFTWARE\Classes\Installer\Dependencies\{050d4fc8-5d48-4b8f-8972-47c82c46020f}" "NUL:"
+  ${If} $0 != "NUL:"
+    DetailPrint "vcredist 2013 (x64) is installed already."
+    Goto installed_2013
+  ${EndIf}
+
+  DetailPrint "Installing vcredist 2013 (x64)"
+  NSISdl::download https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe vcredist_2013_x64.exe
+  ExecWait "${TEMP_DIR}\vcredist_2013_x64.exe /install /quiet /norestart"
+  Delete "${TEMP_DIR}\vcredist_2013_x64.exe"
+
+installed_2013:
+SectionEnd
+
 Section "Fuse Studio" SEC0000
 SectionIn 1 2 3 RO
 
@@ -194,60 +236,14 @@ install_fuse:
   CreateShortCut "$SMPROGRAMS\${NAME}\${NAME}.lnk" "${FUSE_STUDIO}" "" "${FUSE_STUDIO}"
   CreateShortCut "$SMPROGRAMS\${NAME}\Uninstall ${NAME}.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe"
 
-SectionEnd
-
-Section "VC++ Redistributables"
-SectionIn 1 2
-
-  ; https://stackoverflow.com/questions/12206314/detect-if-visual-c-redistributable-for-visual-studio-2012-is-installed
-
-  ReadRegStr $1 HKLM "SOFTWARE\Classes\Installer\Products\1926E8D15D0BCE53481466615F760A7F" "NUL:"
-  ${If} $0 != "NUL:"
-    DetailPrint "vcredist 2010 (x64) is installed already."
-    Goto installed_2010
-  ${EndIf}
-
-  DetailPrint "Installing vcredist 2010 (x64)"
-  NSISdl::download https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x64.exe vcredist_2010_x64.exe
-  ExecWait "${TEMP_DIR}\vcredist_2010_x64.exe /q /norestart"
-  Delete "${TEMP_DIR}\vcredist_2010_x64.exe"
-
-installed_2010:
-  ReadRegStr $1 HKLM "SOFTWARE\Classes\Installer\Dependencies\{ca67548a-5ebe-413a-b50c-4b9ceb6d66c6}" "NUL:"
-  ${If} $0 != "NUL:"
-  DetailPrint "vcredist 2012 (x64) is installed already."
-    Goto installed_2012
-  ${EndIf}
-
-  DetailPrint "Installing vcredist 2012 (x64)"
-  NSISdl::download https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe vcredist_2012_x64.exe
-  ExecWait "${TEMP_DIR}\vcredist_2012_x64.exe /q /norestart"
-  Delete "${TEMP_DIR}\vcredist_2012_x64.exe"
-
-installed_2012:
-  ReadRegStr $1 HKLM "SOFTWARE\Classes\Installer\Dependencies\{050d4fc8-5d48-4b8f-8972-47c82c46020f}" "NUL:"
-  ${If} $0 != "NUL:"
-    DetailPrint "vcredist 2013 (x64) is installed already."
-    Goto installed_2013
-  ${EndIf}
-
-  DetailPrint "Installing vcredist 2013 (x64)"
-  NSISdl::download https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe vcredist_2013_x64.exe
-  ExecWait "${TEMP_DIR}\vcredist_2013_x64.exe /install /quiet /norestart"
-  Delete "${TEMP_DIR}\vcredist_2013_x64.exe"
-
-installed_2013:
-SectionEnd
-
-Section "Warm-up"
-SectionIn 1 2
-
   DetailPrint "Warming up"
-  ExecDos::exec /DETAILED 'cmd /c ""${UNO}" build dotnet "${APP}""' ''
+  ExecDos::exec /DETAILED 'cmd /c ""${UNO}" build dotnet "${FUSE_STUDIO_DIR}\app""' ''
   Pop $0
 
   ${If} $0 != 0
-    SetDetailsView show
+      DetailPrint "Warm-up failed."
+      SetDetailsView show
+      Abort
   ${EndIf}
 
 SectionEnd
