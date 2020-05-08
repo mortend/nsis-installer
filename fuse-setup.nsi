@@ -27,6 +27,7 @@
 !define FUSE_STUDIO_INSTALL '"${NPM}" install "${TEMP_DIR}\${FUSE_STUDIO_TGZ}" -g -f'
 !define FUSE_STUDIO_DIR "${NPM_DIR}\node_modules\fuse-studio-win64"
 !define FUSE_STUDIO "${FUSE_STUDIO_DIR}\bin\Release\Fuse Studio.exe"
+!define FUSE "${FUSE_STUDIO_DIR}\bin\Release\fuse.exe"
 !define UNO "${FUSE_STUDIO_DIR}\node_modules\@fuse-open\uno\bin\uno.exe"
 !define TEMP_DIR "$TEMP\fuse-setup"
 !define REG_KEY "Software\Fuseapps\${NAME}\setup"
@@ -286,6 +287,39 @@ SectionIn 1 2
 
   DetailPrint "Installing android-build-tools"
   ExecDos::exec /DETAILED 'cmd /c "${ANDROID_INSTALL}"' ''
+  Pop $0
+
+  ${If} $0 != 0
+    DetailPrint "Install failed."
+    SetDetailsView show
+    Abort
+  ${EndIf}
+
+SectionEnd
+
+SectionGroupEnd
+SectionGroup "Text Editor Plugins"
+
+; Section "Visual Studio Code"
+; SectionIn 2
+
+;   DetailPrint "Installing vscode-plugin"
+;   ExecDos::exec /DETAILED 'cmd /c ""${FUSE}" install vscode-plugin' ''
+;   Pop $0
+
+;   ${If} $0 != 0
+;     DetailPrint "Install failed."
+;     SetDetailsView show
+;     Abort
+;   ${EndIf}
+
+; SectionEnd
+
+Section "Sublime Text 3"
+SectionIn 2
+
+  DetailPrint "Installing sublime-plugin"
+  ExecDos::exec /DETAILED 'cmd /c ""${FUSE}" install sublime-plugin' ''
   Pop $0
 
   ${If} $0 != 0
