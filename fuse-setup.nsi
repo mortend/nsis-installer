@@ -10,7 +10,7 @@
 !define NPM "${NPM_DIR}\npm.cmd"
 
 !define GIT_VERSION "2.26.2"
-!define GIT_MSI "Git-${GIT_VERSION}-bit.msi"
+!define GIT_MSI "Git-${GIT_VERSION}-64-bit.exe"
 !define GIT_URL "https://github.com/git-for-windows/git/releases/download/v${GIT_VERSION}.windows.1/${GIT_MSI}"
 !define GIT1 "$PROGRAMFILES64\Git\bin\git.exe"
 !define GIT2 "$PROGRAMFILES\Git\bin\git.exe"
