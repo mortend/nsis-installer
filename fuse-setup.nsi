@@ -293,6 +293,7 @@ SectionIn 1 2
   Pop $0
 
   ${If} $0 != 0
+    DetailPrint "Install failed."
     SetDetailsView show
     Abort
   ${EndIf}
