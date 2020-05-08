@@ -3,9 +3,9 @@
 !define NAME "fuse X"
 ;!define VERSION "1.14.0-canary.0"
 
-!define NODE_VERSION "v10.16.1"
-!define NODE_MSI "node-${NODE_VERSION}-x64.msi"
-!define NODE_URL "https://nodejs.org/dist/${NODE_VERSION}/${NODE_MSI}"
+!define NODE_VERSION "12.16.3"
+!define NODE_MSI "node-v${NODE_VERSION}-x64.msi"
+!define NODE_URL "https://nodejs.org/dist/v${NODE_VERSION}/${NODE_MSI}"
 !define NPM_DIR "$APPDATA\npm"
 !define NPM "${NPM_DIR}\npm.cmd"
 
