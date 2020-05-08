@@ -250,7 +250,7 @@ install_fuse:
 SectionEnd
 
 SectionGroupEnd
-SectionGroup "Android Support"
+SectionGroup /e "Android Support"
 
 Section "Git for Windows"
 SectionIn 2
@@ -298,7 +298,7 @@ SectionIn 1 2
 SectionEnd
 
 SectionGroupEnd
-SectionGroup "Text Editor Plugins"
+SectionGroup /e "Text Editor Plugins"
 
 ; Section "Visual Studio Code"
 ; SectionIn 2
