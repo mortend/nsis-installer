@@ -203,7 +203,7 @@ install_fuse:
 
   ExecDos::exec 'taskkill /f /t /im uno-host.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-tray.exe' ''
-  ExecDos::exec 'taskkill /f /t /im fuse-ninja.exe' ''
+  ExecDos::exec 'taskkill /f /t /im fuse-lang.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-studio.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-preview.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse.exe' ''
@@ -339,7 +339,7 @@ Section "Uninstall"
 
   ExecDos::exec 'taskkill /f /t /im uno-host.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-tray.exe' ''
-  ExecDos::exec 'taskkill /f /t /im fuse-ninja.exe' ''
+  ExecDos::exec 'taskkill /f /t /im fuse-lang.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-studio.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-preview.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse.exe' ''
