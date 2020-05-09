@@ -26,7 +26,7 @@
 !define FUSE_STUDIO_TGZ "fuse-studio-win64-${VERSION}.tgz"
 !define FUSE_STUDIO_INSTALL '"${NPM}" install "${TEMP_DIR}\${FUSE_STUDIO_TGZ}" -g -f'
 !define FUSE_STUDIO_DIR "${NPM_DIR}\node_modules\fuse-studio-win64"
-!define FUSE_STUDIO "${FUSE_STUDIO_DIR}\bin\Release\Fuse Studio.exe"
+!define FUSE_STUDIO "${FUSE_STUDIO_DIR}\bin\Release\fuse-studio.exe"
 !define FUSE "${FUSE_STUDIO_DIR}\bin\Release\fuse.exe"
 !define UNO "${FUSE_STUDIO_DIR}\node_modules\@fuse-open\uno\bin\uno.exe"
 !define TEMP_DIR "$TEMP\fuse-setup"
@@ -204,7 +204,7 @@ install_fuse:
   ExecDos::exec 'taskkill /f /t /im uno-host.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-tray.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-ninja.exe' ''
-  ExecDos::exec 'taskkill /f /t /im "Fuse Studio.exe"' ''
+  ExecDos::exec 'taskkill /f /t /im fuse-studio.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-preview.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse.exe' ''
   ;RMDir /r /REBOOTOK "${FUSE_STUDIO_DIR}"
@@ -340,7 +340,7 @@ Section "Uninstall"
   ExecDos::exec 'taskkill /f /t /im uno-host.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-tray.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-ninja.exe' ''
-  ExecDos::exec 'taskkill /f /t /im "Fuse Studio.exe"' ''
+  ExecDos::exec 'taskkill /f /t /im fuse-studio.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-preview.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse.exe' ''
 
@@ -351,6 +351,7 @@ Section "Uninstall"
   DeleteRegKey HKCU "${REG_KEY}"
 
 SectionEnd
+
 
 ;--------------------------------
 ;Installer Functions
