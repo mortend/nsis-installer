@@ -22,10 +22,10 @@
 !define JAVA2 "${JAVA_DIR}\bin\java.exe"
 
 !define ANDROID_INSTALL '"${NPM}" install android-build-tools -g -f'
-!define FUSE_STUDIO_NAME "fuse-studio-win64@${VERSION}"
-!define FUSE_STUDIO_TGZ "fuse-studio-win64-${VERSION}.tgz"
+!define FUSE_STUDIO_NAME "fuse-studio-win@${VERSION}"
+!define FUSE_STUDIO_TGZ "fuse-studio-win-${VERSION}.tgz"
 !define FUSE_STUDIO_INSTALL '"${NPM}" install "${TEMP_DIR}\${FUSE_STUDIO_TGZ}" -g -f'
-!define FUSE_STUDIO_DIR "${NPM_DIR}\node_modules\fuse-studio-win64"
+!define FUSE_STUDIO_DIR "${NPM_DIR}\node_modules\fuse-studio-win"
 !define FUSE_STUDIO "${FUSE_STUDIO_DIR}\bin\Release\fuse-studio.exe"
 !define FUSE "${FUSE_STUDIO_DIR}\bin\Release\fuse.exe"
 !define UNO "${FUSE_STUDIO_DIR}\node_modules\@fuse-open\uno\bin\uno.exe"
@@ -34,7 +34,7 @@
 
 Unicode True
 Name "${NAME}"
-OutFile "..\..\fuse-x-${VERSION}-win64.exe"
+OutFile "..\..\fuse-x-${VERSION}-win.exe"
 InstallDir "$PROGRAMFILES64\${NAME}"
 InstallDirRegKey HKCU "${REG_KEY}" ""
 RequestExecutionLevel admin
@@ -207,7 +207,7 @@ install_fuse:
   ExecDos::exec 'taskkill /f /t /im fuse-studio.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-preview.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse.exe' ''
-  ;RMDir /r /REBOOTOK "${FUSE_STUDIO_DIR}"
+  RMDir /r /REBOOTOK "${FUSE_STUDIO_DIR}"
 
   DetailPrint "Installing ${FUSE_STUDIO_NAME}"
   ExecDos::exec /DETAILED 'cmd /c "${FUSE_STUDIO_INSTALL}"' ''
