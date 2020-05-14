@@ -22,10 +22,10 @@
 !define JAVA2 "${JAVA_DIR}\bin\java.exe"
 
 !define ANDROID_INSTALL '"${NPM}" install android-build-tools -g -f'
-!define FUSE_STUDIO_NAME "fuse-x/studio ${VERSION}"
+!define FUSE_STUDIO_NAME "fuse-x-studio@${VERSION}"
 !define FUSE_STUDIO_TGZ "fuse-x-studio-win-${VERSION}.tgz"
 !define FUSE_STUDIO_INSTALL '"${NPM}" install "${TEMP_DIR}\${FUSE_STUDIO_TGZ}" -g -f'
-!define FUSE_STUDIO_DIR "${NPM_DIR}\node_modules\fuse-studio-win"
+!define FUSE_STUDIO_DIR "${NPM_DIR}\node_modules\@fuse-x/studio-win"
 !define FUSE_STUDIO "${FUSE_STUDIO_DIR}\bin\Release\fuse-studio.exe"
 !define FUSE "${FUSE_STUDIO_DIR}\bin\Release\fuse.exe"
 !define UNO "${FUSE_STUDIO_DIR}\node_modules\@fuse-open\uno\bin\uno.exe"
