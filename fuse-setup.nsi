@@ -233,6 +233,11 @@ install_fuse:
   WriteRegStr HKCU "${REG_KEY}" "" $INSTDIR
   WriteUninstaller "$INSTDIR\uninstall.exe"
 
+  FileOpen $9 your-files.txt w
+  FileWrite $9 "Your files are located at:$\r$\n"
+  FileWrite $9 "${FUSE_STUDIO_DIR}$\r$\n"
+  FileClose $9
+
   CreateDirectory "$SMPROGRAMS\${NAME}"
   CreateShortCut "$SMPROGRAMS\${NAME}\${NAME}.lnk" "${FUSE_STUDIO}" "" "${FUSE_STUDIO}"
   CreateShortCut "$SMPROGRAMS\${NAME}\Uninstall ${NAME}.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe"
