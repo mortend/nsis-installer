@@ -305,26 +305,41 @@ SectionEnd
 SectionGroupEnd
 SectionGroup /e "Text Editor Plugins"
 
-; Section "Visual Studio Code"
-; SectionIn 2
+Section "Visual Studio Code"
+SectionIn 2
 
-;   DetailPrint "Installing vscode-plugin"
-;   ExecDos::exec /DETAILED 'cmd /c ""${FUSE}" install vscode-plugin' ''
-;   Pop $0
+  DetailPrint "Installing vscode-extension"
+  ExecDos::exec /DETAILED 'cmd /c ""${FUSE}" install vscode-extension"' ''
+  Pop $0
 
-;   ${If} $0 != 0
-;     DetailPrint "Install failed."
-;     SetDetailsView show
-;     Abort
-;   ${EndIf}
+  ${If} $0 != 0
+    DetailPrint "Install failed."
+    SetDetailsView show
+    Abort
+  ${EndIf}
 
-; SectionEnd
+SectionEnd
 
 Section "Sublime Text 3"
 SectionIn 2
 
   DetailPrint "Installing sublime-plugin"
-  ExecDos::exec /DETAILED 'cmd /c ""${FUSE}" install sublime-plugin' ''
+  ExecDos::exec /DETAILED 'cmd /c ""${FUSE}" install sublime-plugin"' ''
+  Pop $0
+
+  ${If} $0 != 0
+    DetailPrint "Install failed."
+    SetDetailsView show
+    Abort
+  ${EndIf}
+
+SectionEnd
+
+Section "Atom"
+SectionIn 2
+
+  DetailPrint "Installing atom-plugin"
+  ExecDos::exec /DETAILED 'cmd /c ""${FUSE}" install atom-plugin"' ''
   Pop $0
 
   ${If} $0 != 0
