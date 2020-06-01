@@ -16,8 +16,7 @@
 !define JDK_MSI "OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.msi"
 !define JDK_URL "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u252-b09.1/OpenJDK8U-${JDK_MSI}"
 !define JAVA_DIR "$PROGRAMFILES64\AdoptOpenJDK\jdk-8.0.252.09-hotspot"
-!define JAVA1 "$PROGRAMFILES64\\Android\Android Studio\jre\bin\java.exe"
-!define JAVA2 "${JAVA_DIR}\bin\java.exe"
+!define JAVA "${JAVA_DIR}\bin\java.exe"
 
 !define ANDROID_INSTALL '"${NPM}" install android-build-tools -g -f --prefix "${NPM_DIR}"'
 !define FUSE_STUDIO_NAME "fuse-x-studio@${VERSION}"
@@ -293,8 +292,17 @@ SectionEnd
 Section "Java Development Kit"
 SectionIn 2
 
-  IfFileExists "${JAVA1}" installed_java 0
-  IfFileExists "${JAVA2}" installed_java 0
+  IfFileExists "${JAVA}" installed_java 0
+
+  SetOutPath "${TEMP_DIR}"
+  File "detect-java.cmd"
+  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-java.cmd"' ''
+  Pop $0
+  Delete "${TEMP_DIR}\detect-java.cmd"
+
+  ${If} $0 == 0
+      Goto installed_java
+  ${EndIf}
 
   DetailPrint "Installing java"
   NSISdl::download "${JDK_URL}" "${TEMP_DIR}\${JDK_MSI}"
