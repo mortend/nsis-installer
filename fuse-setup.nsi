@@ -294,8 +294,6 @@ SectionEnd
 Section "Java Development Kit"
 SectionIn 1 2
 
-  IfFileExists "${JAVA}" installed_java 0
-
   SetOutPath "${TEMP_DIR}"
   File "detect-java.cmd"
   ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-java.cmd"' ''
@@ -338,8 +336,6 @@ install_git:
   MessageBox MB_ICONINFORMATION|MB_RETRYCANCEL "Please follow instructions on https://git-scm.com/download/win to install Git for Windows.$\r$\n$\r$\nClick Retry when your Git for Windows installation is finished." IDRETRY check_git IDCANCEL check_java
 
 check_java:
-  IfFileExists "${JAVA}" install_android 0
-
   SetOutPath "${TEMP_DIR}"
   File "detect-java.cmd"
   ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-java.cmd"' ''
