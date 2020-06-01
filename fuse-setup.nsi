@@ -12,8 +12,6 @@
 !define GIT_VERSION "2.26.2"
 !define GIT_MSI "Git-${GIT_VERSION}-64-bit.exe"
 !define GIT_URL "https://github.com/git-for-windows/git/releases/download/v${GIT_VERSION}.windows.1/${GIT_MSI}"
-!define GIT1 "$PROGRAMFILES64\Git\bin\git.exe"
-!define GIT2 "$PROGRAMFILES\Git\bin\git.exe"
 
 !define JDK_MSI "OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.msi"
 !define JDK_URL "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u252-b09.1/OpenJDK8U-${JDK_MSI}"
@@ -274,8 +272,15 @@ SectionGroup /e "Android Support"
 Section "Git for Windows"
 SectionIn 2
 
-  IfFileExists "${GIT1}" installed_git 0
-  IfFileExists "${GIT2}" installed_git 0
+  SetOutPath "${TEMP_DIR}"
+  File "detect-git.cmd"
+  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-git.cmd"' ''
+  Pop $0
+  Delete "${TEMP_DIR}\detect-git.cmd"
+
+  ${If} $0 == 0
+      Goto installed_git
+  ${EndIf}
 
   DetailPrint "Installing git"
   NSISdl::download "${GIT_URL}" "${TEMP_DIR}\${GIT_MSI}"
