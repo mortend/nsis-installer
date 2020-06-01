@@ -119,15 +119,16 @@ SectionGroup "Fuse Studio"
 Section "Node.js"
 SectionIn 1 2
 
-  IfFileExists "${NPM}" installed_node 0
-
   SetOutPath "${TEMP_DIR}"
   File "update-npm.cmd"
   DetailPrint "Updating npm"
   ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\update-npm.cmd"' ''
+  Pop $0
   Delete "${TEMP_DIR}\update-npm.cmd"
 
-  IfFileExists "${NPM}" installed_node 0
+  ${If} $0 == 0
+      Goto installed_node
+  ${EndIf}
 
   DetailPrint "Installing node"
   NSISdl::download "${NODE_URL}" "${TEMP_DIR}\${NODE_MSI}"
@@ -184,15 +185,16 @@ Section "Fuse Studio" SEC0000
 SectionIn 1 2 3 RO
 
 retry:
-  IfFileExists "${NPM}" install_fuse 0
-
   SetOutPath "${TEMP_DIR}"
   File "update-npm.cmd"
   DetailPrint "Updating npm"
   ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\update-npm.cmd"' ''
+  Pop $0
   Delete "${TEMP_DIR}\update-npm.cmd"
 
-  IfFileExists "${NPM}" install_fuse 0
+  ${If} $0 == 0
+      Goto install_fuse
+  ${EndIf}
 
   DetailPrint "Not found: ${NPM}"
   DetailPrint "Please install Node.js and try again."

@@ -6,14 +6,18 @@ set PATH=%PROGRAMFILES%\nodejs;%PATH%
 set PATH=%PROGRAMW6432%\nodejs;%PATH%
 
 if exist "%NPM%" (
-    exit /b 0
+    goto TEST
 )
 
 echo %NPM% not found
 npm install npm -g -f --prefix "%DIR%"
 
 if exist "%NPM%" (
-    exit /b 0
+    goto TEST
 ) else (
     exit /b 1
 )
+
+:TEST
+call "%NPM%" --version
+exit /b %ERRORLEVEL%
