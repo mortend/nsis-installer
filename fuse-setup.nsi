@@ -120,11 +120,10 @@ Section "Node.js"
 SectionIn 1 2
 
   SetOutPath "${TEMP_DIR}"
-  File "update-npm.cmd"
-  DetailPrint "Updating npm"
-  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\update-npm.cmd"' ''
+  File "detect-npm.cmd"
+  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-npm.cmd"' ''
   Pop $0
-  Delete "${TEMP_DIR}\update-npm.cmd"
+  Delete "${TEMP_DIR}\detect-npm.cmd"
 
   ${If} $0 == 0
       Goto installed_node
@@ -186,11 +185,10 @@ SectionIn 1 2 3 RO
 
 retry:
   SetOutPath "${TEMP_DIR}"
-  File "update-npm.cmd"
-  DetailPrint "Updating npm"
-  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\update-npm.cmd"' ''
+  File "detect-npm.cmd"
+  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-npm.cmd"' ''
   Pop $0
-  Delete "${TEMP_DIR}\update-npm.cmd"
+  Delete "${TEMP_DIR}\detect-npm.cmd"
 
   ${If} $0 == 0
       Goto install_fuse
