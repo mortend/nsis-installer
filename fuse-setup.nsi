@@ -317,6 +317,45 @@ SectionEnd
 Section "Android Build Tools"
 SectionIn 1 2
 
+check_git:
+  SetOutPath "${TEMP_DIR}"
+  File "detect-git.cmd"
+  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-git.cmd"' ''
+  Pop $0
+  Delete "${TEMP_DIR}\detect-git.cmd"
+
+  ${If} $0 == 0
+      Goto check_java
+  ${EndIf}
+
+  DetailPrint "Please install Git for Windows and try again."
+  MessageBox MB_ICONQUESTION|MB_YESNO "Git for Windows is required, but could not be found.$\r$\n$\r$\nDo you want to install Git for Windows now?" /SD IDNO IDYES install_git IDNO install_android
+
+install_git:
+  ExecShell "open" "https://git-scm.com/download/win"
+  MessageBox MB_ICONINFORMATION|MB_RETRYCANCEL "Please follow instructions on https://git-scm.com/download/win to install Git for Windows.$\r$\n$\r$\nClick Retry when your Git for Windows installation is finished." IDRETRY check_git IDCANCEL check_java
+
+check_java:
+  IfFileExists "${JAVA}" install_android 0
+
+  SetOutPath "${TEMP_DIR}"
+  File "detect-java.cmd"
+  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-java.cmd"' ''
+  Pop $0
+  Delete "${TEMP_DIR}\detect-java.cmd"
+
+  ${If} $0 == 0
+      Goto install_android
+  ${EndIf}
+
+  DetailPrint "Please install Java Development Kit and try again."
+  MessageBox MB_ICONQUESTION|MB_YESNO "Java Development Kit is required, but could not be found.$\r$\n$\r$\nDo you want to install Java Development Kit now?" /SD IDNO IDYES install_java IDNO install_android
+
+install_java:
+  ExecShell "open" "https://adoptopenjdk.net/"
+  MessageBox MB_ICONINFORMATION|MB_RETRYCANCEL "Please follow instructions on https://adoptopenjdk.net/ to install OpenJDK 8 (LTS).$\r$\n$\r$\nClick Retry when your OpenJDK 8 (LTS) installation is finished." IDRETRY check_java IDCANCEL install_android
+
+install_android:
   DetailPrint "Installing android-build-tools"
   ExecDos::exec /DETAILED 'cmd /c "${ANDROID_INSTALL}"' ''
   Pop $0
