@@ -7,7 +7,7 @@
 !define NODE_MSI "node-v${NODE_VERSION}-x64.msi"
 !define NODE_URL "https://nodejs.org/dist/v${NODE_VERSION}/${NODE_MSI}"
 !define NPM_DIR "$APPDATA\npm"
-!define NPM "${NPM_DIR}\npm.cmd"
+!define NPM "${TEMP_DIR}\npm-wrapper.cmd"
 
 !define GIT_VERSION "2.26.2"
 !define GIT_MSI "Git-${GIT_VERSION}-64-bit.exe"
@@ -121,6 +121,7 @@ SectionIn 1 2
 
   SetOutPath "${TEMP_DIR}"
   File "detect-npm.cmd"
+  File "npm-wrapper.cmd"
   ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-npm.cmd"' ''
   Pop $0
   Delete "${TEMP_DIR}\detect-npm.cmd"
@@ -186,6 +187,7 @@ SectionIn 1 2 3 RO
 retry:
   SetOutPath "${TEMP_DIR}"
   File "detect-npm.cmd"
+  File "npm-wrapper.cmd"
   ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-npm.cmd"' ''
   Pop $0
   Delete "${TEMP_DIR}\detect-npm.cmd"
