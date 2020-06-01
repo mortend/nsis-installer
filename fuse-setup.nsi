@@ -124,6 +124,14 @@ SectionIn 1 2
 
   IfFileExists "${NPM}" installed_node 0
 
+  SetOutPath "${TEMP_DIR}"
+  File "update-npm.cmd"
+  DetailPrint "Updating npm"
+  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\update-npm.cmd"' ''
+  Delete "${TEMP_DIR}\update-npm.cmd"
+
+  IfFileExists "${NPM}" installed_node 0
+
   DetailPrint "Installing node"
   NSISdl::download "${NODE_URL}" "${TEMP_DIR}\${NODE_MSI}"
   ExecWait 'msiexec.exe /i "${TEMP_DIR}\${NODE_MSI}" /qn'
@@ -179,6 +187,14 @@ Section "Fuse Studio" SEC0000
 SectionIn 1 2 3 RO
 
 retry:
+  IfFileExists "${NPM}" install_fuse 0
+
+  SetOutPath "${TEMP_DIR}"
+  File "update-npm.cmd"
+  DetailPrint "Updating npm"
+  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\update-npm.cmd"' ''
+  Delete "${TEMP_DIR}\update-npm.cmd"
+
   IfFileExists "${NPM}" install_fuse 0
 
   DetailPrint "Not found: ${NPM}"
