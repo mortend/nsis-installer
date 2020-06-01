@@ -202,10 +202,8 @@ retry:
   MessageBox MB_ICONQUESTION|MB_YESNO "Node.js is required, but could not be found.$\r$\n$\r$\nDo you want to install Node.js now?" /SD IDNO IDYES install_nodejs IDNO abort_install
 
 install_nodejs:
-  DetailPrint "Installing node"
-  NSISdl::download "${NODE_URL}" "${TEMP_DIR}\${NODE_MSI}"
-  ExecWait 'msiexec.exe /i "${TEMP_DIR}\${NODE_MSI}" /qn'
-  Delete "${TEMP_DIR}\${NODE_MSI}"
+  ExecShell "open" "https://nodejs.org/en/download/"
+  MessageBox MB_ICONINFORMATION|MB_RETRYCANCEL "Please follow instructions on https://nodejs.org/en/download/ to install Node.js.$\r$\n$\r$\nClick Retry when your Node.js installation is finished." IDRETRY retry IDCANCEL abort_install
   Goto retry
 
 abort_install:
