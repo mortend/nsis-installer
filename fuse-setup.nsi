@@ -266,10 +266,10 @@ install_fuse:
 SectionEnd
 
 SectionGroupEnd
-SectionGroup /e "Android Support"
+SectionGroup "Android Support"
 
 Section "Git for Windows"
-SectionIn 2
+SectionIn 1 2
 
   SetOutPath "${TEMP_DIR}"
   File "detect-git.cmd"
@@ -290,7 +290,7 @@ installed_git:
 SectionEnd
 
 Section "Java Development Kit"
-SectionIn 2
+SectionIn 1 2
 
   IfFileExists "${JAVA}" installed_java 0
 
