@@ -1,4 +1,4 @@
 @echo off
 
-call %~dp0npm-wrapper.cmd --version
+call %~dp0wrap.cmd npm --version
 exit /b %ERRORLEVEL%

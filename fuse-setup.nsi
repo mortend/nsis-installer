@@ -7,7 +7,7 @@
 !define NODE_MSI "node-v${NODE_VERSION}-x64.msi"
 !define NODE_URL "https://nodejs.org/dist/v${NODE_VERSION}/${NODE_MSI}"
 !define NPM_DIR "$APPDATA\npm"
-!define NPM "${TEMP_DIR}\npm-wrapper.cmd"
+!define WRAP "${TEMP_DIR}\wrap.cmd"
 
 !define GIT_VERSION "2.26.2"
 !define GIT_MSI "Git-${GIT_VERSION}-64-bit.exe"
@@ -18,10 +18,10 @@
 !define JAVA_DIR "$PROGRAMFILES64\AdoptOpenJDK\jdk-8.0.252.09-hotspot"
 !define JAVA "${JAVA_DIR}\bin\java.exe"
 
-!define ANDROID_INSTALL '"${NPM}" install android-build-tools -g -f --prefix "${NPM_DIR}"'
+!define ANDROID_INSTALL '"${WRAP}" npm install android-build-tools -g -f --prefix "${NPM_DIR}"'
 !define FUSE_STUDIO_NAME "fuse-x-studio@${VERSION}"
 !define FUSE_STUDIO_TGZ "fuse-x-studio-win-${VERSION}.tgz"
-!define FUSE_STUDIO_INSTALL '"${NPM}" install "${TEMP_DIR}\${FUSE_STUDIO_TGZ}" -g -f --prefix "${NPM_DIR}"'
+!define FUSE_STUDIO_INSTALL '"${WRAP}" npm install "${TEMP_DIR}\${FUSE_STUDIO_TGZ}" -g -f --prefix "${NPM_DIR}"'
 !define FUSE_STUDIO_DIR "${NPM_DIR}\node_modules\@fuse-x\studio-win"
 !define FUSE_STUDIO "${FUSE_STUDIO_DIR}\bin\Release\fuse-studio.exe"
 !define FUSE "${FUSE_STUDIO_DIR}\bin\Release\fuse.exe"
@@ -121,7 +121,7 @@ SectionIn 1 2
 
   SetOutPath "${TEMP_DIR}"
   File "detect-npm.cmd"
-  File "npm-wrapper.cmd"
+  File "wrap.cmd"
   ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-npm.cmd"' ''
   Pop $0
   Delete "${TEMP_DIR}\detect-npm.cmd"
@@ -187,7 +187,7 @@ SectionIn 1 2 3 RO
 retry:
   SetOutPath "${TEMP_DIR}"
   File "detect-npm.cmd"
-  File "npm-wrapper.cmd"
+  File "wrap.cmd"
   ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-npm.cmd"' ''
   Pop $0
   Delete "${TEMP_DIR}\detect-npm.cmd"
@@ -196,7 +196,6 @@ retry:
       Goto install_fuse
   ${EndIf}
 
-  DetailPrint "Not found: ${NPM}"
   DetailPrint "Please install Node.js and try again."
   MessageBox MB_ICONQUESTION|MB_YESNO "Node.js is required, but could not be found.$\r$\n$\r$\nDo you want to install Node.js now?" /SD IDNO IDYES install_nodejs IDNO abort_install
 
@@ -373,7 +372,7 @@ Section "Visual Studio Code"
 SectionIn 2
 
   DetailPrint "Installing vscode-extension"
-  ExecDos::exec /DETAILED 'cmd /c ""${FUSE}" install vscode-extension"' ''
+  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" "${FUSE}" install vscode-extension"' ''
   Pop $0
 
   ${If} $0 != 0
@@ -388,7 +387,7 @@ Section "Sublime Text 3"
 SectionIn 2
 
   DetailPrint "Installing sublime-plugin"
-  ExecDos::exec /DETAILED 'cmd /c ""${FUSE}" install sublime-plugin"' ''
+  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" "${FUSE}" install sublime-plugin"' ''
   Pop $0
 
   ${If} $0 != 0
@@ -403,7 +402,7 @@ Section "Atom"
 SectionIn 2
 
   DetailPrint "Installing atom-plugin"
-  ExecDos::exec /DETAILED 'cmd /c ""${FUSE}" install atom-plugin"' ''
+  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" "${FUSE}" install atom-plugin"' ''
   Pop $0
 
   ${If} $0 != 0
