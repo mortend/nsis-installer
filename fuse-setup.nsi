@@ -120,11 +120,9 @@ Section "Node.js"
 SectionIn 1 2
 
   SetOutPath "${TEMP_DIR}"
-  File "detect-npm.cmd"
   File "wrap.cmd"
-  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-npm.cmd"' ''
+  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" npm --version"' ''
   Pop $0
-  Delete "${TEMP_DIR}\detect-npm.cmd"
 
   ${If} $0 == 0
       Goto installed_node
@@ -186,11 +184,9 @@ SectionIn 1 2 3 RO
 
 retry:
   SetOutPath "${TEMP_DIR}"
-  File "detect-npm.cmd"
   File "wrap.cmd"
-  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-npm.cmd"' ''
+  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" npm --version"' ''
   Pop $0
-  Delete "${TEMP_DIR}\detect-npm.cmd"
 
   ${If} $0 == 0
       Goto install_fuse
@@ -273,10 +269,9 @@ Section "Git for Windows"
 SectionIn 1 2
 
   SetOutPath "${TEMP_DIR}"
-  File "detect-git.cmd"
-  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-git.cmd"' ''
+  File "wrap.cmd"
+  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" git --version"' ''
   Pop $0
-  Delete "${TEMP_DIR}\detect-git.cmd"
 
   ${If} $0 == 0
       Goto installed_git
@@ -294,10 +289,9 @@ Section "Java Development Kit"
 SectionIn 1 2
 
   SetOutPath "${TEMP_DIR}"
-  File "detect-java.cmd"
-  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-java.cmd"' ''
+  File "wrap.cmd"
+  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" java -version"' ''
   Pop $0
-  Delete "${TEMP_DIR}\detect-java.cmd"
 
   ${If} $0 == 0
       Goto installed_java
@@ -318,10 +312,9 @@ SectionIn 1 2
 
 check_git:
   SetOutPath "${TEMP_DIR}"
-  File "detect-git.cmd"
-  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-git.cmd"' ''
+  File "wrap.cmd"
+  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" git --version"' ''
   Pop $0
-  Delete "${TEMP_DIR}\detect-git.cmd"
 
   ${If} $0 == 0
       Goto check_java
@@ -336,10 +329,9 @@ install_git:
 
 check_java:
   SetOutPath "${TEMP_DIR}"
-  File "detect-java.cmd"
-  ExecDos::exec /DETAILED 'cmd /c "${TEMP_DIR}\detect-java.cmd"' ''
+  File "wrap.cmd"
+  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" java -version"' ''
   Pop $0
-  Delete "${TEMP_DIR}\detect-java.cmd"
 
   ${If} $0 == 0
       Goto install_android
