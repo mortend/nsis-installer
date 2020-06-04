@@ -255,7 +255,7 @@ SectionIn 1 2
   Pop $0
 
   ${If} $0 != 0
-    Call Failed
+    MessageBox MB_ICONEXCLAMATION|MB_OK "Warm-up failed."
   ${EndIf}
 
 SectionEnd
@@ -327,7 +327,7 @@ install_android:
   Pop $0
 
   ${If} $0 != 0
-    Call Failed
+    MessageBox MB_ICONEXCLAMATION|MB_OK "Android Build Tools failed to install."
   ${EndIf}
 
 SectionEnd
