@@ -411,6 +411,11 @@ Section "Uninstall"
   ExecDos::exec 'taskkill /f /t /im fuse-preview.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse.exe' ''
 
+  SetOutPath "${TEMP_DIR}"
+  File "wrap.cmd"
+
+  ExecDos::exec 'cmd /c ""${WRAP}" npm uninstall @fuse-x/studio-win -f"' ''
+
   RMDir /r /REBOOTOK "$INSTDIR"
   RMDir /r /REBOOTOK "$SMPROGRAMS\${NAME}"
   RMDir /r /REBOOTOK "${FUSE_STUDIO_DIR}"
