@@ -366,7 +366,7 @@ SectionIn 2
   Pop $0
 
   ${If} $0 != 0
-    Call Failed
+    MessageBox MB_ICONEXCLAMATION|MB_OK "The Visual Studio Code extension failed to install."
   ${EndIf}
 
 SectionEnd
@@ -379,7 +379,7 @@ SectionIn 2
   Pop $0
 
   ${If} $0 != 0
-    Call Failed
+    MessageBox MB_ICONEXCLAMATION|MB_OK "The Sublime Text plugin failed to install."
   ${EndIf}
 
 SectionEnd
@@ -392,7 +392,7 @@ SectionIn 2
   Pop $0
 
   ${If} $0 != 0
-    Call Failed
+    MessageBox MB_ICONEXCLAMATION|MB_OK "The Atom plugin failed to install."
   ${EndIf}
 
 SectionEnd
