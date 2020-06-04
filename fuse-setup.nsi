@@ -7,7 +7,6 @@
 !define NODE_MSI "node-v${NODE_VERSION}-x64.msi"
 !define NODE_URL "https://nodejs.org/dist/v${NODE_VERSION}/${NODE_MSI}"
 !define NPM_DIR "$APPDATA\npm"
-!define WRAP "${TEMP_DIR}\wrap.cmd"
 
 !define GIT_VERSION "2.26.2"
 !define GIT_MSI "Git-${GIT_VERSION}-64-bit.exe"
@@ -26,8 +25,10 @@
 !define FUSE_STUDIO "${FUSE_STUDIO_DIR}\bin\Release\fuse-studio.exe"
 !define FUSE "${FUSE_STUDIO_DIR}\bin\Release\fuse.exe"
 !define UNO "${FUSE_STUDIO_DIR}\node_modules\@fuse-open\uno\bin\uno.exe"
-!define TEMP_DIR "$TEMP\fuse-setup"
+
 !define REG_KEY "Software\Fuseapps\${NAME}\setup"
+!define TEMP_DIR "$TEMP\fuse-setup"
+!define WRAP "${TEMP_DIR}\wrap.cmd"
 
 Unicode True
 Name "${NAME}"
@@ -205,9 +206,7 @@ install_nodejs:
   Goto retry
 
 abort_install:
-  DetailPrint "Aborted."
-  SetDetailsView show
-  Abort
+  Call Failed
 
 install_fuse:
   File /oname=${FUSE_STUDIO_TGZ} ..\..\${FUSE_STUDIO_TGZ}
@@ -234,9 +233,7 @@ install_fuse:
 
     ${If} $0 != 0
       Delete "${TEMP_DIR}\${FUSE_STUDIO_TGZ}"
-      DetailPrint "Install failed."
-      SetDetailsView show
-      Abort
+      Call Failed
     ${EndIf}
   ${EndIf}
 
@@ -265,9 +262,7 @@ SectionIn 1 2
   Pop $0
 
   ${If} $0 != 0
-      DetailPrint "Warm-up failed."
-      SetDetailsView show
-      Abort
+    Call Failed
   ${EndIf}
 
 SectionEnd
@@ -352,9 +347,7 @@ install_android:
   Pop $0
 
   ${If} $0 != 0
-    DetailPrint "Install failed."
-    SetDetailsView show
-    Abort
+    Call Failed
   ${EndIf}
 
 SectionEnd
@@ -370,9 +363,7 @@ SectionIn 2
   Pop $0
 
   ${If} $0 != 0
-    DetailPrint "Install failed."
-    SetDetailsView show
-    Abort
+    Call Failed
   ${EndIf}
 
 SectionEnd
@@ -385,9 +376,7 @@ SectionIn 2
   Pop $0
 
   ${If} $0 != 0
-    DetailPrint "Install failed."
-    SetDetailsView show
-    Abort
+    Call Failed
   ${EndIf}
 
 SectionEnd
@@ -400,9 +389,7 @@ SectionIn 2
   Pop $0
 
   ${If} $0 != 0
-    DetailPrint "Install failed."
-    SetDetailsView show
-    Abort
+    Call Failed
   ${EndIf}
 
 SectionEnd
@@ -440,6 +427,12 @@ FunctionEnd
 
 Function .onGUIEnd
   RMDir /r /REBOOTOK "${TEMP_DIR}"
+FunctionEnd
+
+Function Failed
+  DetailPrint "Install failed."
+  SetDetailsView show
+  Abort
 FunctionEnd
 
 Function LaunchFuseStudio
