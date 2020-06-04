@@ -218,7 +218,9 @@ install_fuse:
   ExecDos::exec 'taskkill /f /t /im fuse-studio.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-preview.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse.exe' ''
-  RMDir /r /REBOOTOK "${FUSE_STUDIO_DIR}"
+
+  ;NPM should handle removal of old versions already.
+  ;RMDir /r /REBOOTOK "${FUSE_STUDIO_DIR}"
 
   DetailPrint "Installing ${FUSE_STUDIO_NAME}"
   ExecDos::exec /DETAILED 'cmd /c "${FUSE_STUDIO_INSTALL}"' ''
