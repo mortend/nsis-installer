@@ -15,7 +15,6 @@
 !define JDK_MSI "OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.msi"
 !define JDK_URL "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u252-b09.1/OpenJDK8U-${JDK_MSI}"
 !define JAVA_DIR "$PROGRAMFILES64\AdoptOpenJDK\jdk-8.0.252.09-hotspot"
-!define JAVA "${JAVA_DIR}\bin\java.exe"
 
 !define ANDROID_INSTALL '"${WRAP}" npm install android-build-tools -g -f --prefix "${NPM_DIR}"'
 !define FUSE_STUDIO_NAME "fuse-x-studio@${VERSION}"
@@ -115,6 +114,7 @@ SpaceTexts none
 ;Installer Sections
 
   !include "LogicLib.nsh"
+  !include "sections.nsh"
 
 Section "-wrap"
 
@@ -125,23 +125,11 @@ SectionEnd
 
 SectionGroup "Fuse Studio"
 
-Section "Node.js"
+Section "Node.js" SEC_NODE
 SectionIn 1 2
 
-  ExecDos::exec 'cmd /c ""${WRAP}" npm --version"' ''
-  Pop $0
+  ; Installed later.
 
-  ${If} $0 == 0
-    DetailPrint "Node.js is installed already."
-    Goto installed_node
-  ${EndIf}
-
-  DetailPrint "Installing node"
-  NSISdl::download "${NODE_URL}" "${TEMP_DIR}\${NODE_MSI}"
-  ExecWait 'msiexec.exe /i "${TEMP_DIR}\${NODE_MSI}" /qn'
-  Delete "${TEMP_DIR}\${NODE_MSI}"
-
-installed_node:
 SectionEnd
 
 Section "VC++ Redistributables"
@@ -190,21 +178,25 @@ SectionEnd
 Section "Fuse Studio" SEC0000
 SectionIn 1 2 3 RO
 
-retry:
   ExecDos::exec 'cmd /c ""${WRAP}" npm --version"' ''
   Pop $0
 
   ${If} $0 == 0
-      Goto install_fuse
+    DetailPrint "npm is installed already."
+    Goto install_fuse
+  ${ElseIf} ${SectionIsSelected} ${SEC_NODE}
+    Goto install_node
   ${EndIf}
 
   DetailPrint "Please install Node.js and try again."
-  MessageBox MB_ICONQUESTION|MB_YESNO "Node.js is required, but could not be found.$\r$\n$\r$\nDo you want to install Node.js now?" /SD IDNO IDYES install_nodejs IDNO abort_install
+  MessageBox MB_ICONQUESTION|MB_YESNO "Node.js is required, but could not be found.$\r$\n$\r$\nDo you want to install Node.js now?" /SD IDNO IDYES install_node IDNO abort_install
 
-install_nodejs:
-  ExecShell "open" "https://nodejs.org/en/download/"
-  MessageBox MB_ICONINFORMATION|MB_RETRYCANCEL "Please follow instructions on https://nodejs.org/en/download/ to install Node.js.$\r$\n$\r$\nClick Retry when your Node.js installation is finished." IDRETRY retry IDCANCEL abort_install
-  Goto retry
+install_node:
+  DetailPrint "Installing Node.js"
+  NSISdl::download "${NODE_URL}" "${TEMP_DIR}\${NODE_MSI}"
+  ExecWait 'msiexec.exe /i "${TEMP_DIR}\${NODE_MSI}" /qn'
+  Delete "${TEMP_DIR}\${NODE_MSI}"
+  Goto install_fuse
 
 abort_install:
   Call Failed
@@ -271,78 +263,63 @@ SectionEnd
 SectionGroupEnd
 SectionGroup "Android Support"
 
-Section "Git for Windows"
+Section "Git for Windows" SEC_GIT
 SectionIn 1 2
 
-  ExecDos::exec 'cmd /c ""${WRAP}" git --version"' ''
-  Pop $0
+  ; Installed later.
 
-  ${If} $0 == 0
-    DetailPrint "Git is installed already."
-    Goto installed_git
-  ${EndIf}
-
-  DetailPrint "Installing git"
-  NSISdl::download "${GIT_URL}" "${TEMP_DIR}\${GIT_MSI}"
-  ExecWait 'msiexec.exe /i "${TEMP_DIR}\${GIT_MSI}" /qn'
-  Delete "${TEMP_DIR}\${GIT_MSI}"
-
-installed_git:
 SectionEnd
 
-Section "Java Development Kit"
+Section "Java Development Kit" SEC_JAVA
 SectionIn 1 2
 
-  ExecDos::exec 'cmd /c ""${WRAP}" java -version"' ''
-  Pop $0
+  ; Installed later.
 
-  ${If} $0 == 0
-    DetailPrint "Java is installed already."
-    Goto installed_java
-  ${EndIf}
-
-  DetailPrint "Installing java"
-  NSISdl::download "${JDK_URL}" "${TEMP_DIR}\${JDK_MSI}"
-  ExecWait 'msiexec.exe /i "${TEMP_DIR}\${JDK_MSI}" /qn'
-  Delete "${TEMP_DIR}\${JDK_MSI}"
-
-  System::Call 'Kernel32::SetEnvironmentVariable(t, t)i ("JAVA_HOME", "${JAVA_DIR}").r0'
-
-installed_java:
 SectionEnd
 
 Section "Android Build Tools"
 SectionIn 1 2
 
-check_git:
   ExecDos::exec 'cmd /c ""${WRAP}" git --version"' ''
   Pop $0
 
   ${If} $0 == 0
-      Goto check_java
+    DetailPrint "git is installed already."
+    Goto check_java
+  ${ElseIf} ${SectionIsSelected} ${SEC_GIT}
+    Goto install_git
   ${EndIf}
 
   DetailPrint "Please install Git for Windows and try again."
   MessageBox MB_ICONQUESTION|MB_YESNO "Git for Windows is required, but could not be found.$\r$\n$\r$\nDo you want to install Git for Windows now?" /SD IDNO IDYES install_git IDNO install_android
 
 install_git:
-  ExecShell "open" "https://git-scm.com/download/win"
-  MessageBox MB_ICONINFORMATION|MB_RETRYCANCEL "Please follow instructions on https://git-scm.com/download/win to install Git for Windows.$\r$\n$\r$\nClick Retry when your Git for Windows installation is finished." IDRETRY check_git IDCANCEL check_java
+  DetailPrint "Installing Git for Windows"
+  NSISdl::download "${GIT_URL}" "${TEMP_DIR}\${GIT_MSI}"
+  ExecWait 'msiexec.exe /i "${TEMP_DIR}\${GIT_MSI}" /qn'
+  Delete "${TEMP_DIR}\${GIT_MSI}"
 
 check_java:
   ExecDos::exec 'cmd /c ""${WRAP}" java -version"' ''
   Pop $0
 
   ${If} $0 == 0
-      Goto install_android
+    DetailPrint "java is installed already."
+    Goto install_android
+  ${ElseIf} ${SectionIsSelected} ${SEC_JAVA}
+    Goto install_java
   ${EndIf}
 
   DetailPrint "Please install Java Development Kit and try again."
   MessageBox MB_ICONQUESTION|MB_YESNO "Java Development Kit is required, but could not be found.$\r$\n$\r$\nDo you want to install Java Development Kit now?" /SD IDNO IDYES install_java IDNO install_android
 
 install_java:
-  ExecShell "open" "https://adoptopenjdk.net/"
-  MessageBox MB_ICONINFORMATION|MB_RETRYCANCEL "Please follow instructions on https://adoptopenjdk.net/ to install OpenJDK 8 (LTS).$\r$\n$\r$\nClick Retry when your OpenJDK 8 (LTS) installation is finished." IDRETRY check_java IDCANCEL install_android
+  DetailPrint "Installing Java Development Kit"
+  NSISdl::download "${JDK_URL}" "${TEMP_DIR}\${JDK_MSI}"
+  ExecWait 'msiexec.exe /i "${TEMP_DIR}\${JDK_MSI}" /qn'
+  Delete "${TEMP_DIR}\${JDK_MSI}"
+
+  System::Call 'Kernel32::SetEnvironmentVariable(t, t)i ("JAVA_HOME", "${JAVA_DIR}").r0'
 
 install_android:
   DetailPrint "Installing android-build-tools"
