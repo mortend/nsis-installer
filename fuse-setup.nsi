@@ -128,11 +128,12 @@ SectionGroup "Fuse Studio"
 Section "Node.js"
 SectionIn 1 2
 
-  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" npm --version"' ''
+  ExecDos::exec 'cmd /c ""${WRAP}" npm --version"' ''
   Pop $0
 
   ${If} $0 == 0
-      Goto installed_node
+    DetailPrint "Node.js is installed already."
+    Goto installed_node
   ${EndIf}
 
   DetailPrint "Installing node"
@@ -162,7 +163,7 @@ SectionIn 1 2
 installed_2010:
   ReadRegStr $1 HKLM "SOFTWARE\Classes\Installer\Dependencies\{ca67548a-5ebe-413a-b50c-4b9ceb6d66c6}" "NUL:"
   ${If} $0 != "NUL:"
-  DetailPrint "vcredist 2012 (x64) is installed already."
+    DetailPrint "vcredist 2012 (x64) is installed already."
     Goto installed_2012
   ${EndIf}
 
@@ -190,7 +191,7 @@ Section "Fuse Studio" SEC0000
 SectionIn 1 2 3 RO
 
 retry:
-  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" npm --version"' ''
+  ExecDos::exec 'cmd /c ""${WRAP}" npm --version"' ''
   Pop $0
 
   ${If} $0 == 0
@@ -273,11 +274,12 @@ SectionGroup "Android Support"
 Section "Git for Windows"
 SectionIn 1 2
 
-  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" git --version"' ''
+  ExecDos::exec 'cmd /c ""${WRAP}" git --version"' ''
   Pop $0
 
   ${If} $0 == 0
-      Goto installed_git
+    DetailPrint "Git is installed already."
+    Goto installed_git
   ${EndIf}
 
   DetailPrint "Installing git"
@@ -291,11 +293,12 @@ SectionEnd
 Section "Java Development Kit"
 SectionIn 1 2
 
-  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" java -version"' ''
+  ExecDos::exec 'cmd /c ""${WRAP}" java -version"' ''
   Pop $0
 
   ${If} $0 == 0
-      Goto installed_java
+    DetailPrint "Java is installed already."
+    Goto installed_java
   ${EndIf}
 
   DetailPrint "Installing java"
@@ -312,7 +315,7 @@ Section "Android Build Tools"
 SectionIn 1 2
 
 check_git:
-  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" git --version"' ''
+  ExecDos::exec 'cmd /c ""${WRAP}" git --version"' ''
   Pop $0
 
   ${If} $0 == 0
@@ -327,7 +330,7 @@ install_git:
   MessageBox MB_ICONINFORMATION|MB_RETRYCANCEL "Please follow instructions on https://git-scm.com/download/win to install Git for Windows.$\r$\n$\r$\nClick Retry when your Git for Windows installation is finished." IDRETRY check_git IDCANCEL check_java
 
 check_java:
-  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" java -version"' ''
+  ExecDos::exec 'cmd /c ""${WRAP}" java -version"' ''
   Pop $0
 
   ${If} $0 == 0
