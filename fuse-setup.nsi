@@ -253,6 +253,11 @@ install_fuse:
   CreateShortCut "$SMPROGRAMS\${NAME}\${NAME}.lnk" "${FUSE_STUDIO}" "" "${FUSE_STUDIO}"
   CreateShortCut "$SMPROGRAMS\${NAME}\Uninstall ${NAME}.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe"
 
+SectionEnd
+
+Section "Warm-up"
+SectionIn 1 2
+
   DetailPrint "Warming up"
   ExecDos::exec /DETAILED 'cmd /c ""${UNO}" build dotnet "${FUSE_STUDIO_DIR}\app""' ''
   Pop $0
