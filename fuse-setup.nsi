@@ -86,8 +86,9 @@ SpaceTexts none
   ;!insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
 
-  !define MUI_FINISHPAGE_RUN "${FUSE_STUDIO}"
+  !define MUI_FINISHPAGE_RUN
   !define MUI_FINISHPAGE_RUN_TEXT "Run ${NAME}"
+  !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchFuseStudio"
   !insertmacro MUI_PAGE_FINISH
 
   !insertmacro UMUI_UNPAGE_MULTILANGUAGE
@@ -434,6 +435,15 @@ SectionEnd
 Function .onInit
   !insertmacro UMUI_MULTILANG_GET
   SectionSetFlags ${SEC0000} 17
+FunctionEnd
+
+Function .onGUIEnd
+  RMDir /r /REBOOTOK "${TEMP_DIR}"
+FunctionEnd
+
+Function LaunchFuseStudio
+  HideWindow ;-)
+  ExecDos::exec 'cmd /c ""${WRAP}" "${FUSE_STUDIO}""' ''
 FunctionEnd
 
 ;--------------------------------
