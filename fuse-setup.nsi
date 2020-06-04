@@ -115,13 +115,18 @@ SpaceTexts none
 
   !include "LogicLib.nsh"
 
+Section "-wrap"
+
+  SetOutPath "${TEMP_DIR}"
+  File "wrap.cmd"
+
+SectionEnd
+
 SectionGroup "Fuse Studio"
 
 Section "Node.js"
 SectionIn 1 2
 
-  SetOutPath "${TEMP_DIR}"
-  File "wrap.cmd"
   ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" npm --version"' ''
   Pop $0
 
@@ -184,8 +189,6 @@ Section "Fuse Studio" SEC0000
 SectionIn 1 2 3 RO
 
 retry:
-  SetOutPath "${TEMP_DIR}"
-  File "wrap.cmd"
   ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" npm --version"' ''
   Pop $0
 
@@ -207,7 +210,6 @@ abort_install:
   Abort
 
 install_fuse:
-  SetOutPath "${TEMP_DIR}"
   File /oname=${FUSE_STUDIO_TGZ} ..\..\${FUSE_STUDIO_TGZ}
 
   ExecDos::exec 'taskkill /f /t /im uno-host.exe' ''
@@ -269,8 +271,6 @@ SectionGroup "Android Support"
 Section "Git for Windows"
 SectionIn 1 2
 
-  SetOutPath "${TEMP_DIR}"
-  File "wrap.cmd"
   ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" git --version"' ''
   Pop $0
 
@@ -289,8 +289,6 @@ SectionEnd
 Section "Java Development Kit"
 SectionIn 1 2
 
-  SetOutPath "${TEMP_DIR}"
-  File "wrap.cmd"
   ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" java -version"' ''
   Pop $0
 
@@ -312,8 +310,6 @@ Section "Android Build Tools"
 SectionIn 1 2
 
 check_git:
-  SetOutPath "${TEMP_DIR}"
-  File "wrap.cmd"
   ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" git --version"' ''
   Pop $0
 
@@ -329,8 +325,6 @@ install_git:
   MessageBox MB_ICONINFORMATION|MB_RETRYCANCEL "Please follow instructions on https://git-scm.com/download/win to install Git for Windows.$\r$\n$\r$\nClick Retry when your Git for Windows installation is finished." IDRETRY check_git IDCANCEL check_java
 
 check_java:
-  SetOutPath "${TEMP_DIR}"
-  File "wrap.cmd"
   ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" java -version"' ''
   Pop $0
 
