@@ -397,6 +397,14 @@ Section "Uninstall"
   RMDir /r /REBOOTOK "$SMPROGRAMS\${NAME}"
   RMDir /r /REBOOTOK "${FUSE_STUDIO_DIR}"
   RMDir /r /REBOOTOK "${TEMP_DIR}"
+
+  Delete /REBOOTOK "${NPM_DIR}\fuse"
+  Delete /REBOOTOK "${NPM_DIR}\fuse.cmd"
+  Delete /REBOOTOK "${NPM_DIR}\fuse.ps1"
+  Delete /REBOOTOK "${NPM_DIR}\uno"
+  Delete /REBOOTOK "${NPM_DIR}\uno.cmd"
+  Delete /REBOOTOK "${NPM_DIR}\uno.ps1"
+
   DeleteRegKey HKCU "${REG_KEY}"
 
 SectionEnd
