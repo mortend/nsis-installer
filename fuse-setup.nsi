@@ -204,7 +204,7 @@ abort_install:
 install_fuse:
   File /oname=${FUSE_STUDIO_TGZ} ..\..\${FUSE_STUDIO_TGZ}
 
-  ExecDos::exec 'taskkill /f /t /im uno-host.exe' ''
+  ExecDos::exec 'taskkill /f /t /im unohost.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-tray.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-lang.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-studio.exe' ''
@@ -381,7 +381,7 @@ SectionGroupEnd
 
 Section "Uninstall"
 
-  ExecDos::exec 'taskkill /f /t /im uno-host.exe' ''
+  ExecDos::exec 'taskkill /f /t /im unohost.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-tray.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-lang.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-studio.exe' ''
