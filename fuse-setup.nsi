@@ -403,6 +403,12 @@ Section "Uninstall"
   DeleteRegKey HKCU "${REG_KEY}"
   DeleteRegKey HKCU "Software\Classes\fusestudio"
 
+  MessageBox MB_ICONQUESTION|MB_YESNO "Do you want to delete your configuration and log files?" /SD IDNO IDYES remove_userdata IDNO done
+
+remove_userdata:
+  RMDir /r /REBOOTOK "$LOCALAPPDATA\fuse X"
+
+done:
 SectionEnd
 
 
