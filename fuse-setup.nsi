@@ -401,6 +401,7 @@ Section "Uninstall"
   Delete /REBOOTOK "${NPM_DIR}\uno.ps1"
 
   DeleteRegKey HKCU "${REG_KEY}"
+  DeleteRegKey HKCU "Software\Classes\fusestudio"
 
 SectionEnd
 
