@@ -102,6 +102,7 @@ SpaceTexts none
 
   !insertmacro MUI_LANGUAGE "English"
   !insertmacro MUI_LANGUAGE "Korean"
+  !insertmacro MUI_LANGUAGE "Norwegian"
 
 ;--------------------------------
 ;Install types

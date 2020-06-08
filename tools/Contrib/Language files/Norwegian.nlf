@@ -21,31 +21,31 @@ $(^Name) avinstallasjon
 # ^ComponentsSubCaption
 : Installasjonsvalg
 # ^DirSubCaption
-: Installasjonsmappe
+: Installasjonsmapp
 # ^InstallingSubCaption
-: Installerer
+: Installere
 # ^CompletedSubCaption
 : Ferdig
 # ^UnComponentsSubCaption
 : Avinstallasjonsvalg
 # ^UnDirSubCaption
-: Avinstallasjonsmappe
+: Avinstallasjonsmapp
 # ^ConfirmSubCaption
 : Bekreft
 # ^UninstallingSubCaption
-: Avinstallerer
+: Avinstallere
 # ^UnCompletedSubCaption
 : Ferdig
 # ^BackBtn
-< &Tilbake
+< &Tebake
 # ^NextBtn
-&Neste >
+&Næste >
 # ^AgreeBtn
 &Godta
 # ^AcceptBtn
-Jeg &godtar vilkårene i lisensavtalen
+Æ &godtar vilkåran i lisensavtalen
 # ^DontAcceptBtn
-Jeg godtar &ikke vilkårene i lisensavtalen
+Æ godtar &itj vilkåran i lisensavtalen
 # ^InstallBtn
 &Installer
 # ^UninstallBtn
@@ -57,119 +57,119 @@ Avbryt
 # ^BrowseBtn
 Bla &gjennom...
 # ^ShowDetailsBtn
-Vis &detaljer
+Vis &detalja
 # ^ClickNext
-Trykk Neste for å fortsette.
+Trøkk på Næste for å fortsett.
 # ^ClickInstall
-Trykk Installer for å starte installasjonen.
+Trøkk på Installer for å start installasjon.
 # ^ClickUninstall
-Trykk Avinstaller for å starte avinstallasjonen.
+Trøkk på Avinstaller for å start avinstallasjon.
 # ^Name
 Navn
 # ^Completed
 Ferdig
 # ^LicenseText
-Vennligst les gjennom lisensavtalen før du installerer $(^Name). Hvis du godtar vilkårene i avtalen, trykk på Godta.
+Vennligst les gjennom lisensavtalen før du installere $(^Name). Hvis du godtar vilkåran i avtalen, trøkk på Godta.
 # ^LicenseTextCB
-Vennligst les gjennom lisensavtalen før du installerer $(^Name). Hvis du godtar vilkårene i avtalen, merk av under. $_CLICK
+Vennligst les gjennom lisensavtalen før du installere $(^Name). Hvis du godtar vilkåran i avtalen, merk av under. $_CLICK
 # ^LicenseTextRB
-Vennligst les gjennom lisensavtalen før du installerer $(^Name). Hvis du godtar vilkårene i avtalen, velg det første alternativet. $_CLICK
+Vennligst les gjennom lisensavtalen før du installere $(^Name). Hvis du godtar vilkåran i avtalen, velg det første alternativet. $_CLICK
 # ^UnLicenseText
-Vennligst les gjennom lisensavtalen før du avinstallerer $(^Name). Hvis du godtar vilkårene i avtalen, trykk på Godta.
+Vennligst les gjennom lisensavtalen før du avinstallere $(^Name). Hvis du godtar vilkåran i avtalen, trøkk på Godta.
 # ^UnLicenseTextCB
-Vennligst les gjennom lisensavtalen før du avinstallerer $(^Name). Hvis du godtar vilkårene i avtalen, merk av under. $_CLICK
+Vennligst les gjennom lisensavtalen før du avinstallere $(^Name). Hvis du godtar vilkåran i avtalen, merk av under. $_CLICK
 # ^UnLicenseTextRB
-Vennligst les gjennom lisensavtalen før du avinstallerer $(^Name). Hvis du godtar vilkårene i avtalen, velg det første alternativet. $_CLICK
+Vennligst les gjennom lisensavtalen før du avinstallere $(^Name). Hvis du godtar vilkåran i avtalen, velg det første alternativet. $_CLICK
 # ^Custom
 Egendefinert
 # ^ComponentsText
-Merk komponentene du vil installere og fjern merkingen for de du ikke vil installere. $_CLICK
+Merk dæm delan du vil installer og fjern merkinga på dæm du itj vil installer. $_CLICK
 # ^ComponentsSubText1
-Velg hvilken måte du vil installere på:
+Velg installasjonsmåte:
 # ^ComponentsSubText2_NoInstTypes
-Merk komponenter du vil installere:
+Merk merk dæm delan du vil installer:
 # ^ComponentsSubText2
-Eller merk de valgfrie komponentene du ønsker å installere:
+Eller merk dæm delan som du har løst t å installer:
 # ^UnComponentsText
-Merk komponentene du vil avinstallere og fjern merkingen for de du vil beholde. $_CLICK
+Merk dæm delan du vil avinstaller og fjern merkinga på dæm du vil behold. $_CLICK
 # ^UnComponentsSubText1
-Velg hvilken måte du vil avinstallere på:
+Velg avinstallasjonsmåte:
 # ^UnComponentsSubText2_NoInstTypes
-Merk komponenter du vil avinstallere:
+Merk dæm delan du vil avinstaller:
 # ^UnComponentsSubText2
-Eller merk de valgfrie komponentene du ønsker å avinstallere:
+Eller merk dæm delan som du har løst t å avinstaller:
 # ^DirText
-$(^Name) vil bli installert i følgende mappe. For å velge en annen mappe, trykk Bla gjennom. $_CLICK
+$(^Name) bli no installert i mappa her. For å velg ei anna mapp, trøkk på Bla gjennom. $_CLICK
 # ^DirSubText
 Målmappe
 # ^DirBrowseText
-Velg mappe du vil installere $(^Name) i:
+Velg mapp du vil installer $(^Name) i:
 # ^UnDirText
-$(^Name) i følgende mappe vil bli avinstallert. For å velge en annen mappe, trykk Bla gjennom. $_CLICK
+$(^Name) i mappa her bli no avinstallert. For å velg ei anna mapp, trøkk på Bla gjennom. $_CLICK
 # ^UnDirSubText
 ""
 # ^UnDirBrowseText
-Velg mappe du vil avinstallere $(^Name) fra:
+Velg mapp du vil avinstaller $(^Name) fra:
 # ^SpaceAvailable
 "Ledig plass: "
 # ^SpaceRequired
 "Nødvendig plass: "
 # ^UninstallingText
-Denne veiviseren vil avinstallere $(^Name) fra din datamaskin. $_CLICK
+Den veiviseren her kjæms t å avinstaller $(^Name) fra datamaskina di. $_CLICK
 # ^UninstallingSubText
 Avinstallerer fra:
 # ^FileError
-Feil under åpning av fil for skriving: \r\n\t\"$0\"\r\nTrykk Avbryt for å avbryte installasjonen,\r\nPrøv igjen for å prøve igjen, eller\r\nIgnorer for å hoppe over denne filen
+Feil under åpning av fil for skriving: \r\n\t\"$0\"\r\nTrøkk på Avbryt for å avbryt installasjon,\r\nPrøv igjen for å prøv igjen, eller\r\nIgnorer for å hopp over fila her
 # ^FileError_NoIgnore
-Feil under åpning av fil for skriving: \r\n\t\"$0\"\r\nTrykk Prøv igjen for å prøve igjen, or\r\neller Avbryt for å avbryte installasjonen
+Feil under åpning av fil for skriving: \r\n\t\"$0\"\r\nTrøkk på Prøv igjen for å prøv igjen, or\r\neller Avbryt for å avbryt installasjon
 # ^CantWrite
-"Kan ikke skrive: "
+"Kan itj skriv: "
 # ^CopyFailed
 Kopiering mislyktes
 # ^CopyTo
-"Kopier til "
+"Kopier t "
 # ^Registering
-"Registrerer: "
+"Registrere: "
 # ^Unregistering
-""Avregistrerer: "
+""Avregistrere: "
 # ^SymbolNotFound
-"Kunne ikke finne symbol: "
+"Kan itj finn symbolet her: "
 # ^CouldNotLoad
-"Kunne ikke laste: "
+"Kan itj last: "
 # ^CreateFolder
-"Lag mappe: "
+"Lag mapp: "
 # ^CreateShortcut
 "Lag snarvei: "
 # ^CreatedUninstaller
-"Avinstallasjon laget: "
+"Avinstallasjon laga: "
 # ^Delete
 "Slett fil: "
 # ^DeleteOnReboot
 "Slett ved omstart: "
 # ^ErrorCreatingShortcut
-"Feil under opprettelse av snarvei: "
+"Feil under opprettels av snarvei: "
 # ^ErrorCreating
-"Feil under opprettelse av: "
+"Feil under opprettels av: "
 # ^ErrorDecompressing
-Feil under utpakking av data! Installasjonsprogrammet kan være skadet.
+Feil under utpakking av data! Installasjonsprogrammet kan vårrå skada.
 # ^ErrorRegistering
 Feil under registrering av DLL
 # ^ExecShell
 "ExecShell: "
 # ^Exec
-"Kjøre: "
+"Kjør: "
 # ^Extract
 "Pakk ut: "
 # ^ErrorWriting
-"Pakk ut: Feil under skriving til fil "
+"Pakk ut: Feil under skriving t fil "
 # ^InvalidOpcode
-Installasjonsprogrammet er skadet: ukjent kode
+Installasjonsprogrammet e skada: ukjent kode
 # ^NoOLE
 "Ingen OLE for: "
 # ^OutputFolder
-"Ut-mappe: "
+"Ut-mapp: "
 # ^RemoveFolder
-"Fjern mappe: "
+"Fjern mapp: "
 # ^RenameOnReboot
 "Gi nytt navn ved omstart: "
 # ^Rename
@@ -177,7 +177,7 @@ Installasjonsprogrammet er skadet: ukjent kode
 # ^Skipped
 "Hoppet over: "
 # ^CopyDetails
-Kopier detaljer til utklippstavlen
+Kopier detalja t utklippstavlen
 # ^LogInstall
 Loggfør installasjonsprosessen
 # ^Byte
