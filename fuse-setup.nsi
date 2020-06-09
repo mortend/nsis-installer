@@ -348,7 +348,7 @@ SectionIn 2
   ${EndIf}
 
   DetailPrint "Please install Visual Studio Code"
-  MessageBox MB_ICONQUESTION|MB_YESNO "The 'code' command was not found in PATH.$\r$\n$\r$\nDo you want to install Visual Studio Code now?" /SD IDNO IDYES install_code IDNO install_extension
+  MessageBox MB_ICONQUESTION|MB_YESNO "The 'code' command was not found on your computer.$\r$\n$\r$\nDo you want to install Visual Studio Code now?" /SD IDNO IDYES install_code IDNO install_extension
 
 install_code:
   ExecShell "open" "https://code.visualstudio.com/download/"
@@ -380,7 +380,7 @@ SectionIn 2
   ${EndIf}
 
   DetailPrint "Please install Sublime Text"
-  MessageBox MB_ICONQUESTION|MB_YESNO "The 'subl' command was not found in PATH.$\r$\n$\r$\nDo you want to install Sublime Text now?" /SD IDNO IDYES install_sublime IDNO install_plugin
+  MessageBox MB_ICONQUESTION|MB_YESNO "The 'subl' command was not found on your computer.$\r$\n$\r$\nDo you want to install Sublime Text now?" /SD IDNO IDYES install_sublime IDNO install_plugin
 
 install_sublime:
   ExecShell "open" "https://www.sublimetext.com/3"
