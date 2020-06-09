@@ -87,7 +87,7 @@ SpaceTexts none
   !insertmacro MUI_PAGE_INSTFILES
 
   !define MUI_FINISHPAGE_RUN
-  !define MUI_FINISHPAGE_RUN_TEXT "Run ${NAME}"
+  ;!define MUI_FINISHPAGE_RUN_TEXT "Run ${NAME}"
   !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchFuseStudio"
   !insertmacro MUI_PAGE_FINISH
 
@@ -363,7 +363,6 @@ install_extension:
     MessageBox MB_ICONEXCLAMATION|MB_OK "The Visual Studio Code extension failed to install.$\r$\n$\r$\nYou can reinstall the extension later from the Tools menu in Fuse Studio."
   ${EndIf}
 
-done:
 SectionEnd
 
 Section "Sublime Text 3"
@@ -396,7 +395,6 @@ install_plugin:
     MessageBox MB_ICONEXCLAMATION|MB_OK "The Sublime Text plugin failed to install.$\r$\n$\r$\nYou can reinstall the plugin later from the Tools menu in Fuse Studio."
   ${EndIf}
 
-done:
 SectionEnd
 
 Section "Atom"
