@@ -339,14 +339,31 @@ SectionGroup /e "Text Editor Plugins"
 Section "Visual Studio Code"
 SectionIn 2
 
+  ExecDos::exec 'cmd /c ""${WRAP}" code --version"' ''
+  Pop $0
+
+  ${If} $0 == 0
+    DetailPrint "vscode is installed already."
+    Goto install_extension
+  ${EndIf}
+
+  DetailPrint "Please install Visual Studio Code"
+  MessageBox MB_ICONQUESTION|MB_YESNO "The 'code' command was not found in PATH.$\r$\n$\r$\nDo you want to install Visual Studio Code now?" /SD IDNO IDYES install_code IDNO install_extension
+
+install_code:
+  ExecShell "open" "https://code.visualstudio.com/download/"
+  MessageBox MB_ICONINFORMATION|MB_OK "Please follow instructions on https://code.visualstudio.com/download/ to install Visual Studio Code."
+
+install_extension:
   DetailPrint "Installing vscode-extension"
   ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" "${FUSE}" install vscode-extension"' ''
   Pop $0
 
   ${If} $0 != 0
-    MessageBox MB_ICONEXCLAMATION|MB_OK "The Visual Studio Code extension failed to install."
+    MessageBox MB_ICONEXCLAMATION|MB_OK "The Visual Studio Code extension failed to install.$\r$\n$\r$\nYou can reinstall the extension later from the Tools menu in Fuse Studio."
   ${EndIf}
 
+done:
 SectionEnd
 
 Section "Sublime Text 3"
