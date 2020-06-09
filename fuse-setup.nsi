@@ -369,14 +369,34 @@ SectionEnd
 Section "Sublime Text 3"
 SectionIn 2
 
+  IfFileExists "$SMPROGRAMS\Sublime Text 3.lnk" 0 +2
+  Goto install_plugin
+
+  ExecDos::exec 'cmd /c ""${WRAP}" subl --version"' ''
+  Pop $0
+
+  ${If} $0 == 0
+    DetailPrint "sublime is installed already."
+    Goto install_plugin
+  ${EndIf}
+
+  DetailPrint "Please install Sublime Text"
+  MessageBox MB_ICONQUESTION|MB_YESNO "The 'subl' command was not found in PATH.$\r$\n$\r$\nDo you want to install Sublime Text now?" /SD IDNO IDYES install_sublime IDNO install_plugin
+
+install_sublime:
+  ExecShell "open" "https://www.sublimetext.com/3"
+  MessageBox MB_ICONINFORMATION|MB_OK "Please follow instructions on https://www.sublimetext.com/3 to install Sublime Text."
+
+install_plugin:
   DetailPrint "Installing sublime-plugin"
   ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" "${FUSE}" install sublime-plugin"' ''
   Pop $0
 
   ${If} $0 != 0
-    MessageBox MB_ICONEXCLAMATION|MB_OK "The Sublime Text plugin failed to install."
+    MessageBox MB_ICONEXCLAMATION|MB_OK "The Sublime Text plugin failed to install.$\r$\n$\r$\nYou can reinstall the plugin later from the Tools menu in Fuse Studio."
   ${EndIf}
 
+done:
 SectionEnd
 
 Section "Atom"
@@ -387,7 +407,7 @@ SectionIn 2
   Pop $0
 
   ${If} $0 != 0
-    MessageBox MB_ICONEXCLAMATION|MB_OK "The Atom plugin failed to install."
+    MessageBox MB_ICONEXCLAMATION|MB_OK "The Atom plugin failed to install.$\r$\n$\r$\nYou can reinstall the plugin later from the Tools menu in Fuse Studio."
   ${EndIf}
 
 SectionEnd
