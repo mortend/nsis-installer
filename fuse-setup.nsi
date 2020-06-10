@@ -62,7 +62,7 @@ SpaceTexts none
   !define MUI_WELCOMEFINISHPAGE_BITMAP "skin\Wizard.bmp"
   !define MUI_ICON "icon.ico"
   !define MUI_UNICON "icon.ico"
-  !define MUI_INSTFILESPAGE_COLORS "50e645 31343a"
+  !define MUI_INSTFILESPAGE_COLORS "4e55db 31343a"
   !define MUI_INSTFILESPAGE_PROGRESSBAR "smooth colored"
   !define MUI_COMPONENTSPAGE_NODESC
 
