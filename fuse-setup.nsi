@@ -60,6 +60,7 @@ SpaceTexts none
   !define UMUI_SCROLLBARIMAGE_BMP "skin\ScrollBarWhite.bmp"
   !define UMUI_PAGEBGIMAGE_BMP "skin\PageBG.bmp"
   !define MUI_WELCOMEFINISHPAGE_BITMAP "skin\Wizard.bmp"
+  !define MUI_WELCOMEFINISHPAGE_BITMAP_NOSTRETCH "skin\Wizard.bmp"
   !define MUI_ICON "icon.ico"
   !define MUI_UNICON "icon.ico"
   !define MUI_INSTFILESPAGE_COLORS "4e55db 31343a"
