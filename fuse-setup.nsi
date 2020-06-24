@@ -121,6 +121,7 @@ SpaceTexts none
 Section "-wrap"
 
   SetOutPath "${TEMP_DIR}"
+  File "copy-unoconfig.js"
   File "wrap.cmd"
 
 SectionEnd
@@ -331,6 +332,9 @@ install_android:
   ${If} $0 != 0
     MessageBox MB_ICONEXCLAMATION|MB_OK "Android Build Tools failed to install."
   ${EndIf}
+
+  ; Copy generated .unoconfig to %PROGRAMDATA% (#92).
+  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" node "${TEMP_DIR}\copy-unoconfig.js""' ''
 
 SectionEnd
 
