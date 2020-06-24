@@ -304,11 +304,11 @@ install_git:
   Delete "${TEMP_DIR}\${GIT_MSI}"
 
 check_java:
-  ExecDos::exec 'cmd /c ""${WRAP}" java -version"' ''
+  ExecDos::exec 'cmd /c ""${WRAP}" javac -version"' ''
   Pop $0
 
   ${If} $0 == 0
-    DetailPrint "java is installed already"
+    DetailPrint "jdk is installed already"
     Goto install_android
   ${ElseIf} ${SectionIsSelected} ${SEC_JAVA}
     Goto install_java
