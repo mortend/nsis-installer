@@ -426,6 +426,8 @@ SectionGroupEnd
 ;--------------------------------
 ;Uninstaller Section
 
+  Var PROGRAMDATA
+
 Section "Uninstall"
 
   ExecDos::exec 'taskkill /f /t /im unohost.exe' ''
@@ -454,6 +456,7 @@ Section "Uninstall"
 
 remove_userdata:
   RMDir /r /REBOOTOK "$LOCALAPPDATA\fuse X"
+  RMDir /r /REBOOTOK "$PROGRAMDATA\fuse X"
 
 done:
 SectionEnd
@@ -486,4 +489,8 @@ FunctionEnd
 
 Function un.onInit
   !insertmacro UMUI_MULTILANG_GET
+  ; https://nsis-dev.github.io/NSIS-Forums/html/t-354968.html
+  SetShellVarContext all
+  StrCpy $PROGRAMDATA "$APPDATA"
+  SetShellVarContext current
 FunctionEnd
