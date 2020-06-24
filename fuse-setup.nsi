@@ -141,7 +141,7 @@ SectionIn 1 2
 
   ReadRegStr $1 HKLM "SOFTWARE\Classes\Installer\Products\1926E8D15D0BCE53481466615F760A7F" "NUL:"
   ${If} $0 != "NUL:"
-    DetailPrint "vcredist 2010 (x64) is installed already."
+    DetailPrint "vcredist 2010 (x64) is installed already"
     Goto installed_2010
   ${EndIf}
 
@@ -153,7 +153,7 @@ SectionIn 1 2
 installed_2010:
   ReadRegStr $1 HKLM "SOFTWARE\Classes\Installer\Dependencies\{ca67548a-5ebe-413a-b50c-4b9ceb6d66c6}" "NUL:"
   ${If} $0 != "NUL:"
-    DetailPrint "vcredist 2012 (x64) is installed already."
+    DetailPrint "vcredist 2012 (x64) is installed already"
     Goto installed_2012
   ${EndIf}
 
@@ -165,7 +165,7 @@ installed_2010:
 installed_2012:
   ReadRegStr $1 HKLM "SOFTWARE\Classes\Installer\Dependencies\{050d4fc8-5d48-4b8f-8972-47c82c46020f}" "NUL:"
   ${If} $0 != "NUL:"
-    DetailPrint "vcredist 2013 (x64) is installed already."
+    DetailPrint "vcredist 2013 (x64) is installed already"
     Goto installed_2013
   ${EndIf}
 
@@ -184,13 +184,13 @@ SectionIn 1 2 3 RO
   Pop $0
 
   ${If} $0 == 0
-    DetailPrint "npm is installed already."
+    DetailPrint "npm is installed already"
     Goto install_fuse
   ${ElseIf} ${SectionIsSelected} ${SEC_NODE}
     Goto install_node
   ${EndIf}
 
-  DetailPrint "Please install Node.js and try again."
+  DetailPrint "Please install Node.js and try again"
   MessageBox MB_ICONQUESTION|MB_YESNO "Node.js is required, but could not be found.$\r$\n$\r$\nDo you want to install Node.js now?" /SD IDNO IDYES install_node IDNO abort_install
 
 install_node:
@@ -286,13 +286,13 @@ SectionIn 1 2
   Pop $0
 
   ${If} $0 == 0
-    DetailPrint "git is installed already."
+    DetailPrint "git is installed already"
     Goto check_java
   ${ElseIf} ${SectionIsSelected} ${SEC_GIT}
     Goto install_git
   ${EndIf}
 
-  DetailPrint "Please install Git for Windows and try again."
+  DetailPrint "Please install Git for Windows and try again"
   MessageBox MB_ICONQUESTION|MB_YESNO "Git for Windows is required, but could not be found.$\r$\n$\r$\nDo you want to install Git for Windows now?" /SD IDNO IDYES install_git IDNO install_android
 
 install_git:
@@ -306,13 +306,13 @@ check_java:
   Pop $0
 
   ${If} $0 == 0
-    DetailPrint "java is installed already."
+    DetailPrint "java is installed already"
     Goto install_android
   ${ElseIf} ${SectionIsSelected} ${SEC_JAVA}
     Goto install_java
   ${EndIf}
 
-  DetailPrint "Please install Java Development Kit and try again."
+  DetailPrint "Please install Java Development Kit and try again"
   MessageBox MB_ICONQUESTION|MB_YESNO "Java Development Kit is required, but could not be found.$\r$\n$\r$\nDo you want to install Java Development Kit now?" /SD IDNO IDYES install_java IDNO install_android
 
 install_java:
@@ -344,7 +344,7 @@ SectionIn 2
   Pop $0
 
   ${If} $0 == 0
-    DetailPrint "vscode is installed already."
+    DetailPrint "vscode is installed already"
     Goto install_extension
   ${EndIf}
 
@@ -376,7 +376,7 @@ SectionIn 2
   Pop $0
 
   ${If} $0 == 0
-    DetailPrint "sublime is installed already."
+    DetailPrint "sublime is installed already"
     Goto install_plugin
   ${EndIf}
 
