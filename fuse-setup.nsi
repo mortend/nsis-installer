@@ -473,8 +473,8 @@ Function Failed
 FunctionEnd
 
 Function LaunchFuseStudio
-  HideWindow ;-)
-  ExecDos::exec 'cmd /c ""${WRAP}" "${FUSE_STUDIO}""' ''
+  ; http://mdb-blog.blogspot.com/2013/01/nsis-lunch-program-as-user-from-uac.html
+  Exec '"$WINDIR\explorer.exe" "${FUSE_STUDIO}"'
 FunctionEnd
 
 ;--------------------------------
