@@ -253,7 +253,7 @@ Section "Warm-up"
 SectionIn 1 2
 
   DetailPrint "Warming up"
-  ExecDos::exec /DETAILED 'cmd /c ""${UNO}" build dotnet "${FUSE_STUDIO_DIR}\app""' ''
+  ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" "${UNO}" build dotnet "${FUSE_STUDIO_DIR}\app""' ''
   Pop $0
 
   ${If} $0 != 0
