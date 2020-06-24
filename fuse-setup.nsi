@@ -453,7 +453,6 @@ remove_userdata:
 done:
 SectionEnd
 
-
 ;--------------------------------
 ;Installer Functions
 
