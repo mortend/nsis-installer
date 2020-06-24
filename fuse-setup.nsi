@@ -467,6 +467,8 @@ SectionEnd
 Function .onInit
   !insertmacro UMUI_MULTILANG_GET
   SectionSetFlags ${SEC0000} 17
+  ; Prefer installing in %PROGRAMW6432% (x64).
+  ExpandEnvStrings $INSTDIR "%PROGRAMW6432%\${NAME}"
 FunctionEnd
 
 Function .onGUIEnd
