@@ -336,6 +336,11 @@ install_android:
 
   ; Copy generated .unoconfig to %PROGRAMDATA% (#92).
   ExecDos::exec /DETAILED 'cmd /c ""${WRAP}" node "${TEMP_DIR}\copy-unoconfig.js""' ''
+  Pop $0
+
+  ${If} $0 != 0
+    MessageBox MB_ICONEXCLAMATION|MB_OK "Failed to copy unoconfig file."
+  ${EndIf}
 
 SectionEnd
 
