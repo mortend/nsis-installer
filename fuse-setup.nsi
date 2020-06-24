@@ -16,10 +16,8 @@
 !define JDK_URL "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u252-b09.1/OpenJDK8U-${JDK_MSI}"
 !define JAVA_DIR "$PROGRAMFILES64\AdoptOpenJDK\jdk-8.0.252.09-hotspot"
 
-!define ANDROID_INSTALL '"${WRAP}" npm install android-build-tools -g -f --prefix "${NPM_DIR}"'
 !define FUSE_STUDIO_NAME "fuse-x-studio@${VERSION}"
 !define FUSE_STUDIO_TGZ "fuse-x-studio-win-${VERSION}.tgz"
-!define FUSE_STUDIO_INSTALL '"${WRAP}" npm install "${TEMP_DIR}\${FUSE_STUDIO_TGZ}" -g -f --prefix "${NPM_DIR}"'
 !define FUSE_STUDIO_DIR "${NPM_DIR}\node_modules\@fuse-x\studio-win"
 !define FUSE_STUDIO "${FUSE_STUDIO_DIR}\bin\Release\fuse-studio.exe"
 !define FUSE "${FUSE_STUDIO_DIR}\bin\Release\fuse.exe"
@@ -28,6 +26,9 @@
 !define REG_KEY "Software\Fuseapps\${NAME}\setup"
 !define TEMP_DIR "$TEMP\fuse-setup"
 !define WRAP "${TEMP_DIR}\wrap.cmd"
+
+!define INSTALL_ANDROID     '"${WRAP}" npm install android-build-tools -g -f --prefix "${NPM_DIR}"'
+!define INSTALL_FUSE_STUDIO '"${WRAP}" npm install "${TEMP_DIR}\${FUSE_STUDIO_TGZ}" -g -f --prefix "${NPM_DIR}"'
 
 Unicode True
 Name "${NAME}"
@@ -218,13 +219,13 @@ install_fuse:
   ;RMDir /r /REBOOTOK "${FUSE_STUDIO_DIR}"
 
   DetailPrint "Installing ${FUSE_STUDIO_NAME}"
-  ExecDos::exec /DETAILED 'cmd /c "${FUSE_STUDIO_INSTALL}"' ''
+  ExecDos::exec /DETAILED 'cmd /c "${INSTALL_FUSE_STUDIO}"' ''
   Pop $0
 
   ${If} $0 != 0
     ;Try one more time.
     DetailPrint "Reinstalling ${FUSE_STUDIO_NAME}"
-    ExecDos::exec /DETAILED 'cmd /c "${FUSE_STUDIO_INSTALL}"' ''
+    ExecDos::exec /DETAILED 'cmd /c "${INSTALL_FUSE_STUDIO}"' ''
     Pop $0
 
     ${If} $0 != 0
@@ -326,7 +327,7 @@ install_java:
 
 install_android:
   DetailPrint "Installing android-build-tools"
-  ExecDos::exec /DETAILED 'cmd /c "${ANDROID_INSTALL}"' ''
+  ExecDos::exec /DETAILED 'cmd /c "${INSTALL_ANDROID}"' ''
   Pop $0
 
   ${If} $0 != 0
