@@ -14,7 +14,9 @@ function copyUnoConfig() {
     const dst = path.join(dir, '.unoconfig');
 
     if (fs.existsSync(src)) {
-        fs.mkdirSync(dir);
+        if (!fs.existsSync(dir))
+            fs.mkdirSync(dir, {recursive: true});
+
         fs.copyFileSync(src, dst);
         console.log(dst);
     }
