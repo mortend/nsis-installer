@@ -32,7 +32,7 @@
 
 Unicode True
 Name "${NAME}"
-OutFile "..\..\fuse-x-${VERSION}-win.exe"
+OutFile "fuse-x-${VERSION}-win.exe"
 InstallDirRegKey HKCU "${REG_KEY}" ""
 RequestExecutionLevel admin
 SetCompressor lzma
@@ -205,7 +205,7 @@ abort_install:
   Call Failed
 
 install_fuse:
-  File /oname=${FUSE_STUDIO_TGZ} ..\..\${FUSE_STUDIO_TGZ}
+  File ${FUSE_STUDIO_TGZ}
 
   ExecDos::exec 'taskkill /f /t /im unohost.exe' ''
   ExecDos::exec 'taskkill /f /t /im fuse-tray.exe' ''
