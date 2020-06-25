@@ -14,7 +14,7 @@
 
 !define JDK_MSI "OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.msi"
 !define JDK_URL "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u252-b09.1/OpenJDK8U-${JDK_MSI}"
-!define JAVA_DIR "$PROGRAMFILES64\AdoptOpenJDK\jdk-8.0.252.09-hotspot"
+!define JDK_SUFFIX "AdoptOpenJDK\jdk-8.0.252.09-hotspot"
 
 !define FUSE_STUDIO_NAME "fuse-x-studio@${VERSION}"
 !define FUSE_STUDIO_TGZ "fuse-x-studio-win-${VERSION}.tgz"
@@ -323,7 +323,11 @@ install_java:
   ExecWait 'msiexec.exe /i "${TEMP_DIR}\${JDK_MSI}" /qn'
   Delete "${TEMP_DIR}\${JDK_MSI}"
 
-  System::Call 'Kernel32::SetEnvironmentVariable(t, t)i ("JAVA_HOME", "${JAVA_DIR}").r0'
+  ; Use JDK installation in %PROGRAMW6432% (x64).
+  Var /GLOBAL JAVA_HOME
+  ExpandEnvStrings $JAVA_HOME "%PROGRAMW6432%\${JDK_SUFFIX}"
+  System::Call 'Kernel32::SetEnvironmentVariable(t, t)i ("JAVA_HOME", "$JAVA_HOME").r0'
+  DetailPrint "JAVA_HOME: $JAVA_HOME"
 
 install_android:
   DetailPrint "Installing android-build-tools"
