@@ -426,6 +426,20 @@ SectionEnd
 
 SectionGroupEnd
 
+Section "-chmod"
+
+  DetailPrint "Setting permissions"
+
+  ; Reset permissions to All Users (not Administrator).
+  AccessControl::GrantOnFile "${FUSE_STUDIO_DIR}" "(S-1-5-32-545)" "FullAccess"
+  Pop $0
+
+  ${If} $0 == "error"
+    MessageBox MB_ICONEXCLAMATION|MB_OK "Failed to set permissions."
+  ${EndIf}
+
+SectionEnd
+
 ;--------------------------------
 ;Uninstaller Section
 
