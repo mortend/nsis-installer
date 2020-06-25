@@ -258,6 +258,7 @@ SectionIn 1 2
   Pop $0
 
   ${If} $0 != 0
+    SetDetailsView show
     MessageBox MB_ICONEXCLAMATION|MB_OK "Warm-up failed."
   ${EndIf}
 
@@ -334,6 +335,7 @@ install_android:
   Pop $0
 
   ${If} $0 != 0
+    SetDetailsView show
     MessageBox MB_ICONEXCLAMATION|MB_OK "Android Build Tools failed to install."
   ${EndIf}
 
@@ -342,6 +344,7 @@ install_android:
   Pop $0
 
   ${If} $0 != 0
+    SetDetailsView show
     MessageBox MB_ICONEXCLAMATION|MB_OK "Failed to copy unoconfig file."
   ${EndIf}
 
@@ -374,6 +377,7 @@ install_extension:
   Pop $0
 
   ${If} $0 != 0
+    SetDetailsView show
     MessageBox MB_ICONEXCLAMATION|MB_OK "The Visual Studio Code extension failed to install.$\r$\n$\r$\nYou can reinstall the extension later from the Tools menu in Fuse Studio."
   ${EndIf}
 
@@ -406,6 +410,7 @@ install_plugin:
   Pop $0
 
   ${If} $0 != 0
+    SetDetailsView show
     MessageBox MB_ICONEXCLAMATION|MB_OK "The Sublime Text plugin failed to install.$\r$\n$\r$\nYou can reinstall the plugin later from the Tools menu in Fuse Studio."
   ${EndIf}
 
@@ -419,6 +424,7 @@ SectionIn 2
   Pop $0
 
   ${If} $0 != 0
+    SetDetailsView show
     MessageBox MB_ICONEXCLAMATION|MB_OK "The Atom plugin failed to install.$\r$\n$\r$\nYou can reinstall the plugin later from the Tools menu in Fuse Studio."
   ${EndIf}
 
@@ -435,6 +441,7 @@ Section "-chmod"
   Pop $0
 
   ${If} $0 == "error"
+    SetDetailsView show
     MessageBox MB_ICONEXCLAMATION|MB_OK "Failed to set permissions."
   ${EndIf}
 
