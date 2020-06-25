@@ -61,8 +61,8 @@ SpaceTexts none
   !define UMUI_PAGEBGIMAGE_BMP "skin\PageBG.bmp"
   !define MUI_WELCOMEFINISHPAGE_BITMAP "skin\Wizard.bmp"
   !define MUI_WELCOMEFINISHPAGE_BITMAP_NOSTRETCH "skin\Wizard.bmp"
-  !define MUI_ICON "icon.ico"
-  !define MUI_UNICON "icon.ico"
+  !define MUI_ICON "data\icon.ico"
+  !define MUI_UNICON "data\icon.ico"
   !define MUI_INSTFILESPAGE_COLORS "4e55db 31343a"
   !define MUI_INSTFILESPAGE_PROGRESSBAR "smooth colored"
   !define MUI_COMPONENTSPAGE_NODESC
@@ -82,7 +82,7 @@ SpaceTexts none
 
   !insertmacro UMUI_PAGE_MULTILANGUAGE
   ;!insertmacro MUI_PAGE_WELCOME
-  !insertmacro MUI_PAGE_LICENSE "license.txt"
+  !insertmacro MUI_PAGE_LICENSE "data\license.txt"
   !insertmacro MUI_PAGE_COMPONENTS
   ;!insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
