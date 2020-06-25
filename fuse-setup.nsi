@@ -33,7 +33,6 @@
 Unicode True
 Name "${NAME}"
 OutFile "..\..\fuse-x-${VERSION}-win.exe"
-InstallDir "$PROGRAMFILES64\${NAME}"
 InstallDirRegKey HKCU "${REG_KEY}" ""
 RequestExecutionLevel admin
 SetCompressor lzma
