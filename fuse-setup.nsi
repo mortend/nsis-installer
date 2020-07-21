@@ -13,7 +13,7 @@
 !define GIT_URL "https://github.com/git-for-windows/git/releases/download/v${GIT_VERSION}.windows.1/${GIT_MSI}"
 
 !define JDK_MSI "OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.msi"
-!define JDK_URL "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u252-b09.1/OpenJDK8U-${JDK_MSI}"
+!define JDK_URL "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u252-b09.1/${JDK_MSI}"
 !define JDK_SUFFIX "AdoptOpenJDK\jdk-8.0.252.09-hotspot"
 
 !define FUSE_STUDIO_NAME "fuse-x-studio@${VERSION}"
